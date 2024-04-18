@@ -1,0 +1,8 @@
+    
+    
+    @for (post of data; track $index) {
+        <p [innerHTML]="post.content.rendered"></p>
+    } @empty {
+        <p class="placeholder">tests</p>
+    }
+    
