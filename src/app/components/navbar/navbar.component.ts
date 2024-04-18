@@ -1,22 +1,23 @@
-import { Component, inject } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
+// Modules
+import { AngularSvgIconModule } from 'angular-svg-icon';
+
+// Constants
+import { socialIcons } from './utils/constants/social-icons.constants';
+
+// Models
+import { navigationIcons } from './utils/model/navigation-icons.model';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [HttpClientModule],
+  imports: [CommonModule, AngularSvgIconModule, RouterLink, RouterLinkActive],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 
 })
-export class NavbarComponent {
-  http = inject(HttpClient)
-  data: any
-  constructor(){
-    this.http.get<any>('https://tepihpomeri.rs/api/wp-json/wp/v2/posts').subscribe(res => {
-      console.log(res)
-      this.data = res
-    })
-  }
+export class NavbarComponent{
+  public icons: navigationIcons[] = socialIcons.SOCIAL_ICONS
 }
