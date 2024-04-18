@@ -1,90 +1,87 @@
-<nav>
-    <div class="mx-auto py-[10px] px-[10px] lg:px-[60px] md:px-[60px] flex justify-between bg-primary-100">
-        <div class="flex items-center gap-x-1">
+<nav class="bg-primary-100">
+  <!-- Desktop navigation -->
+  <div class="mx-auto relative py-[10px] px-[10px] lg:px-[60px] md:px-[60px] sm:px-[30px]">
+    <div class="flex justify-between">
 
-          <svg-icon src="/assets/svg/delivery.svg" [svgStyle]="{
+    <div class="flex items-center gap-x-1">
+
+      <svg-icon src="/assets/svg/delivery.svg" [svgStyle]="{
+        'width.px': 25,
+        'height.px': 25
+      }"></svg-icon> 
+
+      <span class="text-white font-semibold italic text-xs">Dostava na teritoriji cele Srbije</span>
+    </div>
+    
+    <div class="flex gap-[4px]">
+       @for (icon of icons; track icon){
+
+          <svg-icon 
+          class="cursor-pointer"
+          [src]="icon.svg" 
+          [svgStyle]="{
             'width.px': 25,
             'height.px': 25
-          }"></svg-icon> 
+          }"></svg-icon>
 
-          <span class="text-white font-semibold italic text-xs">Dostava na teritoriji cele Srbije</span>
-        </div>
-        
-        <div class="flex gap-[4px]">
-           @for (icon of icons; track icon){
-
-              <svg-icon 
-              class="cursor-pointer"
-              [src]="icon.svg" 
-              [svgStyle]="{
-                'width.px': 25,
-                'height.px': 25
-              }"></svg-icon>
-
-           }@empty {
-            <li>No items found</li>
-            }
-                  
-        </div>
+       }@empty {
+        <li>No items found</li>
+        }
+              
+    </div>
     </div>
 
-    <div class="z-10 py-[10px] lg:px-[60px] md:px-[60px]  absolute w-full">
-      <div class="relative flex h-16 items-center justify-between">
-        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-          <!-- Mobile menu button-->
-          <button type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
-            <span class="absolute -inset-0.5"></span>
-            <span class="sr-only">Open main menu</span>
-            <!--
-              Icon when menu is closed.
-
-              Menu open: "hidden", Menu closed: "block"
-            -->
-            <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-            <!--
-              Icon when menu is open.
-
-              Menu open: "block", Menu closed: "hidden"
-            -->
-            <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+    <div class="max-sm:hidden flex absolute top-[50px] z-10 items-center w-full pl-[10px]">
+      <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+        <div class="flex flex-shrink-0 items-center">
+          <div class="relative h-full">
+            <svg-icon class="absolute top-[5px]" src="/assets/svg/logo/logo-light.svg"></svg-icon>
+          </div>
         </div>
-        <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-          <div class="flex flex-shrink-0 items-center">
-            <div class="relative h-full">
-              <svg-icon class="absolute top-[5px]" src="/assets/svg/logo/logo-light.svg"></svg-icon>
-            </div>
-          </div>
 
-          <div class="sm:ml-6 w-full flex justify-center">
-              <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class=" text-white px-3 py-2 text-sm font-semibold italic" >Početna</a>
-              
-              <a routerLink="/proizvodi" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class="text-gray-300 px-3 py-2 text-sm font-semibold italic">Svi Proizvodi</a>
+        <div class="sm:ml-6 w-full flex justify-center">
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class=" text-white px-3 py-2 text-sm font-semibold italic" >Početna</a>
             
-              <a routerLink="/o-nama" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class="text-gray-300 px-3 py-2 text-sm font-semibold italic">O nama</a>
-            
-              <a routerLink="/kontakt" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class="text-gray-300 px-3 py-2 text-sm font-semibold italic">Kontakt</a>
-          </div>
+            <a routerLink="/proizvodi" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class="text-gray-300 px-3 py-2 text-sm font-semibold italic">Svi Proizvodi</a>
+          
+            <a routerLink="/o-nama" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class="text-gray-300 px-3 py-2 text-sm font-semibold italic">O nama</a>
+          
+            <a routerLink="/kontakt" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class="text-gray-300 px-3 py-2 text-sm font-semibold italic">Kontakt</a>
         </div>
       </div>
     </div>
-
-  <!-- Mobile menu, show/hide based on menu state. -->
-  <div class="sm:hidden" id="mobile-menu">
-    <div class="space-y-1 px-2 pb-3 pt-2">
-      <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-      <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-semibold italic" aria-current="page">Home</a>
-     
-      <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-semibold italic">Svi Proizvodi</a>
-      
-      <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-semibold italic">O nama</a>
-      
-      <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-semibold italic">Kontakt</a>
-    </div>
   </div>
 
+  <!-- Mobile menu toggle button -->
+  <div class="sm:hidden flex justify-end" id="mobileMenuButton">
+    <button 
+    (click)="toggleMobileMenu()"
+    type="button" class="focus:outline-none relative inline-flex 
+    items-center justify-center rounded-md p-2 text-gray-400 hover:text-white m-0">
+      <!-- Hamburger menu icon -->
+      <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+      <!-- Close menu icon (hidden by default) -->
+      <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile navigation -->
+  <div class="sm:hidden relative" >
+    <ng-container *ngIf="isMobileMenuOpen">
+      <div [@fade] [@slideInOut] class="mobile-menu " 
+      class="space-y-1 top-[-4px] bg-primary-100 px-2 pb-3 pt-2 flex flex-col items-center absolute z-10 justify-center w-full h-[100vh]">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class=" text-white px-3 py-2 text-sm font-semibold italic" >Početna</a>
+        
+        <a routerLink="/proizvodi" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class="text-gray-300 px-3 py-2 text-sm font-semibold italic">Svi Proizvodi</a>
+        
+        <a routerLink="/o-nama" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class="text-gray-300 px-3 py-2 text-sm font-semibold italic">O nama</a>
+        
+        <a routerLink="/kontakt" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class="text-gray-300 px-3 py-2 text-sm font-semibold italic">Kontakt</a>
+      </div>
+    </ng-container>
+  </div>
 </nav>
