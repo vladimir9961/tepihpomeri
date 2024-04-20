@@ -52,23 +52,26 @@ export class NavbarComponent{
     }
   }
 
+
   @HostListener('window:scroll', ['$event'])
   private onWindowScroll(): void {
-    const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-  
-    if (currentScrollPosition > this.previousScrollPosition) {
-      // Scrolling down
-      this.isBottomNavFixed = true;
-      this.isScrolledToTop = true
-    } else if (currentScrollPosition < this.previousScrollPosition) {
-      // Scrolling up
-      if (currentScrollPosition === 0) {
-        this.isScrolledToTop = false
+    if (typeof window !== 'undefined') {
+      const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    
+      if (currentScrollPosition > this.previousScrollPosition) {
+
+        this.isBottomNavFixed = true;
+        this.isScrolledToTop = true;
+      } else if (currentScrollPosition < this.previousScrollPosition) {
+      
+        if (currentScrollPosition === 0) {
+          this.isScrolledToTop = false;
+        }
+        this.isBottomNavFixed = false;
       }
-      this.isBottomNavFixed = false;
+    
+      this.previousScrollPosition = currentScrollPosition;
     }
-  
-    this.previousScrollPosition = currentScrollPosition;
   }
 
   public toggleMobileMenu(): void {
@@ -87,11 +90,9 @@ export class NavbarComponent{
     this.isMagiceLineHovered = showHideMagicLIne
   }
   
-  getCurrentRouteName() {
+  public getCurrentRouteName(): void {
     const currentUrl = this.location.path();
     const segments = currentUrl.split('/');
     this.currentRouteName = segments[segments.length - 1];
-
-    console.log(segments[segments.length - 1])
 }
 }
