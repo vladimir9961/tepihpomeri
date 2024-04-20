@@ -52,9 +52,12 @@
                 </a>
                 
                 <!-- Dropdown Menu -->
-                <div [ngClass]="{'open-dropdown':isDropdownOpen}" class="hidden absolute left-0 mt-2 w-[150px] bg-primary-100 rounded-lg shadow-lg z-10">
-                  <a routerLink="tepisi" routerLinkActive="text-white"  class="block px-4 py-2 text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Tepisi</a>
-                  <a routerLink="cebad" routerLinkActive="text-white"  class="block px-4 py-2 text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Ćebad</a>
+                <div [ngClass]="{'open-dropdown':isDropdownOpen}" class="hidden absolute left-0 mt-2 w-[130px] bg-primary-100 rounded-xs shadow-lg z-10">
+                  <a routerLink="tepisi" routerLinkActive="text-white"  class="block px-[8px] py-[8px] text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Tepisi</a>
+                  
+                  <div class="h-[1px] w-[120px] relative left-[5px] bg-slate-100"></div>
+
+                  <a routerLink="cebad" routerLinkActive="text-white"  class="block px-[8px] py-[8px] text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Ćebad</a>
                 </div>
               </div>
               
@@ -103,7 +106,7 @@
           </a>
           
           <!-- Dropdown Menu -->
-          <div [ngClass]="{'open-dropdown-mobile':isDropdownOpen}" class="hidden left-0 mt-2 w-[150px] bg-primary-100 rounded-lg shadow-lg z-10">
+          <div [ngClass]="{'open-dropdown-mobile':isDropdownOpen}" class="hidden left-0 mt-2 z-10">
             <a routerLink="tepisi" routerLinkActive="text-white"  class="block px-4 py-2 text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Tepisi</a>
             <a routerLink="cebad" routerLinkActive="text-white"  class="block px-4 py-2 text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Ćebad</a>
           </div>

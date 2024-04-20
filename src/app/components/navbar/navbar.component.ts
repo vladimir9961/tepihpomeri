@@ -5,10 +5,10 @@ import { Component, HostListener } from '@angular/core';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 // Constants
-import { socialIcons } from './utils/constants/social-icons.constants';
+import { socialIcons } from '../../constants/social-icons.constants';
 
 // Models
-import { navigationIcons } from './utils/model/navigation-icons.model';
+import { navigationIcons } from '../../model/navigation-icons.model';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 // Animations
@@ -26,22 +26,22 @@ export class NavbarComponent{
   public icons: navigationIcons[] = socialIcons.SOCIAL_ICONS;
 
   public isMobileMenuOpen: boolean = false;
-  isDropdownOpen = false;
+  public isDropdownOpen: boolean = false;
 
   public toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
-  toggleDropdown() {
+  public toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  closeDropdown() {
+  public closeDropdown(): void {
     this.isDropdownOpen = false;
   }
 
   @HostListener('document:click', ['$event'])
-  clickOutside(event: Event) {
+  public clickOutside(event: Event): void {
     if (!(event.target as HTMLElement).closest('.relative')) {
       this.closeDropdown();
     }

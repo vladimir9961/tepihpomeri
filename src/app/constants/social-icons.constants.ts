@@ -4,13 +4,16 @@ export class socialIcons {
     static SOCIAL_ICONS: navigationIcons[] = [
         {
             svg: '/assets/svg/social-icons/fa.svg',
+            data: 'Facebook'
         },
         {
             svg: '/assets/svg/social-icons/tiktok.svg',
+            data: 'Instagram',
         }
         ,
         {
             svg: '/assets/svg/social-icons/in.svg',
+            data: 'Instagram',
         }
         ,
         {

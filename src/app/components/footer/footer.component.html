@@ -1,0 +1,23 @@
+<footer class=" bg-primary-100 pl-[60px] py-[20px] flex flex-col gap-[5px]">
+    <svg-icon class="mb-[20px]" src="/assets/svg/logo/logo-light.svg"></svg-icon>
+   
+    @for (icon of icons; track icon){
+
+        <div class="flex items-center gap-[5px]">
+            <svg-icon 
+            class="cursor-pointer"
+            [src]="icon.svg" 
+            [svgStyle]="{
+                'width.px': 25,
+                'height.px': 25
+            }"></svg-icon>
+
+            <span class="text-white text-sm font-semibold">{{icon.data}}</span>
+        </div>
+
+    }@empty {
+      <li>No items found</li>
+      }
+
+    
+</footer>
