@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 // Modules
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -26,8 +26,24 @@ export class NavbarComponent{
   public icons: navigationIcons[] = socialIcons.SOCIAL_ICONS;
 
   public isMobileMenuOpen: boolean = false;
+  isDropdownOpen = false;
 
   public toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  closeDropdown() {
+    this.isDropdownOpen = false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: Event) {
+    if (!(event.target as HTMLElement).closest('.relative')) {
+      this.closeDropdown();
+    }
   }
 }

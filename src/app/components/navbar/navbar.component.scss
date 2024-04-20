@@ -1,7 +1,38 @@
-@media (min-width: 640px) {
-    .active {
-      border-bottom: 1px solid white;
-      transform: scale(1.1);
-      transition: border-bottom 0.3s ease, color 0.3s ease, transform 0.3s ease;
-    }
+.open-dropdown{
+  display: block;
+}
+
+.open-dropdown-mobile{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.active-child{
+  .first-child{
+    color:white;
+    border-bottom: 1px solid white;
+    transition: border-bottom 0.3s ease, color 0.3s ease, transform 0.3s ease;
   }
+}
+
+.bottom-nav {
+  width: calc(100% - 60px);
+}
+
+@media (min-width: 640px) {
+  .active {
+    color:white;
+    border-bottom: 1px solid white;
+    transform: scale(1.1);
+    transition: border-bottom 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  }
+}
+
+@media (max-width: 640px) {
+  .active {
+    color:white;
+    border-bottom: 1px solid white;
+    transition: border-bottom 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  }
+}
