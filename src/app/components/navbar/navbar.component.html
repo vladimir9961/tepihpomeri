@@ -1,7 +1,8 @@
 <nav class="bg-primary-100">
   <!-- Desktop navigation -->
   <div class="mx-auto relative">
-    <div class="flex justify-between py-[10px] px-[10px] lg:px-[60px] md:px-[60px] sm:px-[30px]">
+
+    <div class="flex justify-between py-[10px] px-[10px] lg:px-[60px] md:px-[60px] sm:px-[30px] xl:px-[200px]">
 
       <div class="flex items-center gap-x-1">
 
@@ -31,20 +32,118 @@
       </div>
     </div>
 
-    <div class="max-sm:hidden top-[40px] flex absolute z-10 items-center bottom-nav px-[10px] lg:px-[60px] md:px-[60px]">
+    <div 
+    class="max-sm:hidden top-[50px] flex absolute z-10 items-center 
+    w-[100%] px-[10px] xl:px-[200px] 
+    md:px-[60px]"
+  >
+    <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+      <div class="flex flex-shrink-0 items-center relative">
+        <div class="absolute h-full left-0">
+          @if(isBottomNavFixed){ 
+            <svg-icon class="absolute top-[10px]" src="/assets/svg/logo/logo-dark.svg"></svg-icon>
+        } @else {
+            <svg-icon class="absolute top-[10px]" src="/assets/svg/logo/logo-light.svg"></svg-icon>
+        }
+        </div>
+      </div>
+     
+
+        <ul 
+        class="
+        nav-routes sm:ml-6 w-fullflex 
+        justify-center items-center h-[45px] w-[100%] 
+        flex new-magic-line-selected"
+        [ngClass]="{'dark-nav': isBottomNavFixed} "
+        (mouseenter)="magic_line(true)"
+        (mouseleave)="magic_line(false)"
+        >
+            <a 
+            routerLink="/pocetna" 
+            routerLinkActive="active new-magic-line-selected-home" 
+            [routerLinkActiveOptions]="{exact: true}" 
+            ariaCurrentWhenActive="page" 
+            
+            class="px-[8px] text-gray-300 hover:text-white text-14 flex items-center font-semibold italic" 
+            >Početna</a>
+          
+          <li class="px-[8px]">
+            <div class="relative cursor-pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (clickOutside)="closeDropdown()">
+              <!-- Dropdown Button -->
+              <a  class="text-gray-300 text-14 flex items-center font-semibold italic hover:text-white" (click)="toggleDropdown()">
+                Proizvodi
+              </a>
+              
+              <!-- Dropdown Menu -->
+              <div [ngClass]="{'open-dropdown':isDropdownOpen}" class="hidden absolute left-0 mt-2 w-[130px] bg-primary-100 rounded-xs shadow-lg z-10">
+                <a routerLink="tepisi" routerLinkActive="text-white"  class="block px-[8px] py-[8px] text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Tepisi</a>
+                
+                <div class="h-[1px] w-[120px] relative left-[5px] bg-slate-100"></div>
+
+                <a routerLink="cebad" routerLinkActive="text-white"  class="block px-[8px] py-[8px] text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Ćebad</a>
+              </div>
+            </div>
+            
+          </li>
+
+            <a 
+            routerLink="/o-nama" 
+            routerLinkActive="active new-magic-line-selected-about-us" 
+            [routerLinkActiveOptions]="{exact: true}" 
+            ariaCurrentWhenActive="page" 
+            class="px-[8px] text-gray-300 hover:text-white text-14 
+            flex items-center font-semibold italic"
+            >O nama</a>
+          
+            <a 
+            routerLink="/kontakt" 
+            routerLinkActive="active new-magic-line-selected-contact" 
+            [routerLinkActiveOptions]="{exact: true}" 
+            ariaCurrentWhenActive="page" 
+            class="text-gray-300 hover:text-white text-14 flex items-center 
+            font-semibold italic px-[8px]"
+            >Kontakt</a>
+
+            <div class="new-magic-line"></div>
+        </ul>
+    </div>
+  </div>
+    
+    <div 
+      [ngClass]="isBottomNavFixed ? 'nav-fixed' : 'nav-top'" 
+      class="max-sm:hidden top-[50px] flex absolute z-10 items-center 
+      w-[100%] px-[10px] xl:px-[200px] 
+      md:px-[60px]"
+      [@slideInOutNav]="isBottomNavFixed && isScrolledToTop ? 'true' : 'false'" 
+      [@fadeNavigation]="isBottomNavFixed && isScrolledToTop ? 'true' : 'false'"
+    >
       <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
         <div class="flex flex-shrink-0 items-center">
           <div class="relative h-full">
-            <svg-icon class="absolute top-[23px]" src="/assets/svg/logo/logo-light.svg"></svg-icon>
+            @if(isBottomNavFixed){ 
+              <svg-icon class="absolute top-[10px]" src="/assets/svg/logo/logo-dark.svg"></svg-icon>
+          } @else {
+              <svg-icon class="absolute top-[10px]" src="/assets/svg/logo/logo-light.svg"></svg-icon>
+          }
           </div>
         </div>
 
-          <ul class="sm:ml-6 w-full flex justify-center gap-[15px] items-center h-[45px] pt-[25px]">
-            <li>
-              <a routerLink="/pocetna" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class=" text-gray-300 hover:text-white text-14 flex items-center font-semibold italic" >Početna</a>
-            </li>
+          <ul 
+          class="sm:ml-6 w-full flex justify-center items-center h-[45px] 
+          nav-routes new-magic-line-selected
+          "
+          [ngClass]="{'dark-nav': isBottomNavFixed} "
+          >
+              <a 
+              routerLink="/pocetna" 
+              routerLinkActive="active new-magic-line-selected-home" 
+              [routerLinkActiveOptions]="{exact: true}" 
+              ariaCurrentWhenActive="page" 
+              class=" text-gray-300 hover:text-white text-14 flex items-center 
+              font-semibold italic px-[8px]" 
+              >Početna</a>
             
-            <li>
+            <li class="px-[8px]">
               <div class="relative cursor-pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (clickOutside)="closeDropdown()">
                 <!-- Dropdown Button -->
                 <a  class="text-gray-300 text-14 flex items-center font-semibold italic hover:text-white" (click)="toggleDropdown()">
@@ -63,16 +162,30 @@
               
             </li>
 
-            <li>
-              <a routerLink="/o-nama" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class="text-gray-300 hover:text-white text-14 flex items-center font-semibold italic">O nama</a>
-            </li>
+              <a 
+              routerLink="/o-nama" 
+              routerLinkActive="active new-magic-line-selected-about-us" 
+              [routerLinkActiveOptions]="{exact: true}" 
+              ariaCurrentWhenActive="page" 
+              class="  text-14 flex items-center 
+              font-semibold italic px-[8px]"
+              >O nama</a>
             
-            <li>
-              <a routerLink="/kontakt" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class="text-gray-300 hover:text-white text-14 flex items-center font-semibold italic">Kontakt</a>
-            </li>
+              <a 
+              routerLink="/kontakt" 
+              routerLinkActive="active new-magic-line-selected-contact" 
+              [routerLinkActiveOptions]="{exact: true}" 
+              ariaCurrentWhenActive="page"
+              class=" text-14 flex items-center 
+              font-semibold italic px-[8px]"
+              >Kontakt</a>
+
+              <div class="new-magic-line dark-magic-line"></div>
           </ul>
       </div>
     </div>
+  
+  
   </div>
 
   <!-- Mobile menu toggle button -->
