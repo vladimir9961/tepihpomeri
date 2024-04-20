@@ -70,9 +70,9 @@
           <li class="px-[8px]">
             <div class="relative cursor-pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (clickOutside)="closeDropdown()">
               <!-- Dropdown Button -->
-              <a  class="text-gray-300 text-14 flex items-center font-semibold italic hover:text-white" (click)="toggleDropdown()">
+              <button  class="text-gray-300 text-14 flex items-center font-semibold italic hover:text-white" (click)="toggleDropdown()">
                 Proizvodi
-              </a>
+              </button>
               
               <!-- Dropdown Menu -->
               <div [ngClass]="{'open-dropdown':isDropdownOpen}" class="hidden absolute left-0 mt-2 w-[130px] bg-primary-100 rounded-xs shadow-lg z-10">
@@ -146,9 +146,9 @@
             <li class="px-[8px]">
               <div class="relative cursor-pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (clickOutside)="closeDropdown()">
                 <!-- Dropdown Button -->
-                <a  class="text-gray-300 text-14 flex items-center font-semibold italic hover:text-white" (click)="toggleDropdown()">
+                <button  class="text-black text-14 flex items-center font-semibold italic hover:text-white" (click)="toggleDropdown()">
                   Proizvodi
-                </a>
+                </button>
                 
                 <!-- Dropdown Menu -->
                 <div [ngClass]="{'open-dropdown':isDropdownOpen}" class="hidden absolute left-0 mt-2 w-[130px] bg-primary-100 rounded-xs shadow-lg z-10">
@@ -214,9 +214,9 @@
         
         <div class="relative cursor-pointer flex flex-col items-center" routerLinkActive="active-child" [routerLinkActiveOptions]="{exact: true}" (clickOutside)="closeDropdown()">
           <!-- Dropdown Button -->
-          <a  class="text-gray-300 text-14 flex items-center font-semibold italic hover:text-white first-child" (click)="toggleDropdown()">
+          <button  class="text-gray-300 text-14 flex items-center font-semibold italic hover:text-white first-child" (click)="toggleDropdown()">
             Proizvodi
-          </a>
+          </button>
           
           <!-- Dropdown Menu -->
           <div [ngClass]="{'open-dropdown-mobile':isDropdownOpen}" class="hidden left-0 mt-2 z-10">
