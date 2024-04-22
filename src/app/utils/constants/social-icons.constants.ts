@@ -1,4 +1,4 @@
-import { navigationIcons } from "../model/navigation-icons.model";
+import { navigationIcons } from "../../model/navigation-icons.model";
 
 export class socialIcons {
     static SOCIAL_ICONS: navigationIcons[] = [

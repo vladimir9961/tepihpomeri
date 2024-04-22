@@ -12,10 +12,10 @@ export const slideInOut = trigger('slideInOut', [
 
 export const fade = trigger('fade', [
     transition(':enter', [
-      style({ opacity: 0 }), // initial state
-      animate('1s ease', style({ opacity: 1 })) // final state
+      style({ opacity: 0 }),
+      animate('1s ease', style({ opacity: 1 })) 
     ]),
     transition(':leave', [
-      animate('0s ease', style({ opacity: 0 })) // final state
+      animate('0s ease', style({ opacity: 0 }))
     ])
   ]);

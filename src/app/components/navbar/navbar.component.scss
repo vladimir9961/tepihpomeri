@@ -18,6 +18,10 @@
   }
 }
 
+.transparent-nav{
+  background: transparent;
+}
+
 .nav-fixed{
   position: fixed;
   top: 0;
@@ -28,6 +32,10 @@
     li{
       a{
         color:$text-dark;
+      }
+
+      .text-light {
+        color: $white;
       }
     }
   }
@@ -40,7 +48,6 @@
 .new-magic-line {
   width: 70px;
   height: 1px;
-  background: $white;
   position: absolute;
   top: 35px;
   transition:all 0.2s ease-in;
@@ -83,7 +90,6 @@
 
 @media (min-width: 640px) {
   .active {
-    color:$white;
     transform: scale(1.1);
     transition: color 0.3s ease, transform 0.3s ease;
   }

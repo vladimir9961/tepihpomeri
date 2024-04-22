@@ -8,7 +8,7 @@ export class AppInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const isSvgRequest = req.url.endsWith('.svg');
-        const baseUrl = 'https://tepihpomeri.rs/api/wp-json/wc/v3';
+        const baseUrl = 'https://tepihpomeri.rs/api/wp-json';
         const username: string = 'ck_ad2b12ff817b7805a9e93a8de8eb1be6c83d48f6';
         const password: string = 'cs_7ecb16b5f95ed3cf79f234c2e1c3e379c399982b';
         const woocommerceAutherization  = 'Basic ' + btoa(username + ':' + password);

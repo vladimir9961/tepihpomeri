@@ -12,8 +12,10 @@ module.exports = {
       colors: {
         primary: {
           100: '#1F1B1B',
+          200: '#444444',
           primaryDarken: '#1F1B1B33'
         },
+        
 
         text:{
           dark: '#505050', 

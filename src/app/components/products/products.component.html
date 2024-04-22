@@ -1,0 +1,16 @@
+<article class="wrapper xl:w-[]">
+    @for (product of products; track $index) {
+        <div class="max-w-[340px] min-w-[250px]">
+            <img [src]="product?.images[0].src" alt="">
+
+            <h4 class="pl-[12px] text-primary-100 text-sm italic font-bold">{{product.name}}</h4>
+
+            <div class="pl-[12px]"> 
+                <span class="text-[#C4C4C4] text-sm italic font-bold">
+                    {{product.price}} 
+                </span>
+                <span class="text-[#C4C4C4] text-sm italic font-bold">RSD</span>
+            </div>
+        </div>
+    } 
+</article>

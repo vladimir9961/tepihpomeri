@@ -1,15 +1,15 @@
-import { CommonModule, Location } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { CommonModule} from '@angular/common';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 
 // Modules
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 // Constants
-import { socialIcons } from '../../constants/social-icons.constants';
+import { socialIcons } from '../../utils/constants/social-icons.constants';
 
 // Models
 import { navigationIcons } from '../../model/navigation-icons.model';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ActivatedRoute, ActivationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 // Animations
 import { fade, slideInOut } from '../../helper/animations/mobile.animation';
@@ -23,7 +23,9 @@ import { fadeNavigation, slideInOutNavigation } from './utils/animation/navigati
   animations: [fade, slideInOut, fadeNavigation, slideInOutNavigation]
 
 })
-export class NavbarComponent{
+export class NavbarComponent implements OnInit{
+  public router: Router = inject(Router)
+
   public icons: navigationIcons[] = socialIcons.SOCIAL_ICONS;
 
   public isMobileMenuOpen: boolean = false;
@@ -35,15 +37,25 @@ export class NavbarComponent{
   public isScrolledToTop: boolean = true;
   public isMagiceLineHovered: boolean = false;
 
-  currentRouteName: string = '';
+  public isCurrentRouteHome: boolean = false;
 
-  constructor(private readonly location: Location){ }
+  constructor(){ 
+    this.router.events.subscribe((event: any) => {
+      if (event instanceof ActivationEnd && event.snapshot && event.snapshot.routeConfig) {
+        if(event.snapshot.routeConfig.path === 'pocetna') {
+          this.isCurrentRouteHome = true
+        } else {
+          this.isCurrentRouteHome = false
+        }
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.onWindowScroll()
 
-    this.getCurrentRouteName()
   }
+
 
   @HostListener('document:click', ['$event'])
   public clickOutside(event: Event): void {
@@ -90,9 +102,4 @@ export class NavbarComponent{
     this.isMagiceLineHovered = showHideMagicLIne
   }
   
-  public getCurrentRouteName(): void {
-    const currentUrl = this.location.path();
-    const segments = currentUrl.split('/');
-    this.currentRouteName = segments[segments.length - 1];
-}
 }

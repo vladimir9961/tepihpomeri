@@ -1,1 +1,85 @@
-<p>rugs works!</p>
+<main class="grid h-full gap-[20px] mt-[95px] lg:px-[60px] md:px-[60px] sm:px-[30px] xl:px-[200px] mb-[60px]">
+    <aside class="w-[200px] p-[5px]">
+        <div>
+            <div class="flex items-center gap-[5px] px-[4px]">
+                <svg-icon 
+                src="/assets/svg/filter.svg"
+                [svgStyle]="{
+                    'width.px': 10,
+                    'height.px': 10
+                }"
+                ></svg-icon>
+
+                <h1 class="text-sm font-medium text-primary-200 select-none">Filteri</h1>
+            </div>
+
+            <div class="w-[190px] my-[10px] h-[1px] bg-[#1F1B1B33]"></div>
+        
+            <div>
+                <div class="px-[5px] text-primary-100">
+                    <div 
+                        class="flex items-center justify-between cursor-pointer" 
+                        (click)="toggleDropdowns('cathegory')">
+                        <h3 class="text-sm font-bold select-none">Kategorije</h3>
+                        
+                        @if(isExpandedCathegory){
+                            <svg-icon 
+                            src="/assets/svg/dropdown-icon-dark.svg"
+                            ></svg-icon>
+                        } @else {
+                            <svg-icon 
+                            src="/assets/svg/dropdown-icon.svg"
+                            ></svg-icon>
+                        }
+                    </div>
+
+                    <div 
+                    class="flex flex-col pl-[5px] mt-[5px] gap-[4px] overflow-hidden"
+                    [@toggleDropdown]="isExpandedCathegory ? 'open' : 'closed'"
+                    >
+                        <a 
+                        [ngClass]="isExpandedCathegory ? 'open-dropdown-elems' : 'hide-dropdown-elems'"
+                        routerLink="/tepisi" routerLinkActive="font-medium" class="text-sm text-text-dark">Tepisi</a>
+                        
+                        <a 
+                        [ngClass]="isExpandedCathegory ? 'open-dropdown-elems' : 'hide-dropdown-elems'"
+                        routerLink="/cebad" routerLinkActive="font-medium" class="text-sm text-text-dark">Ćebad</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-[190px] my-[10px] h-[1px] bg-[#1F1B1B33]"></div>
+
+            <div>
+                <div class="px-[5px] text-primary-100" 
+                >
+                    <div  class="flex items-center justify-between cursor-pointer" 
+                    (click)="toggleDropdowns('tags')">
+                        <h3 class="text-sm font-bold select-none">Tags</h3>
+                        
+                        @if(isExpandedTags){
+                            <svg-icon 
+                            src="/assets/svg/dropdown-icon-dark.svg"
+                            ></svg-icon>
+                        } @else {
+                            <svg-icon 
+                            src="/assets/svg/dropdown-icon.svg"
+                            ></svg-icon>
+                        }
+                    </div>
+                        
+                    <div class="flex flex-col pl-[5px] mt-[5px] gap-[4px] overflow-hidden"
+                    [@toggleDropdown]="isExpandedTags ? 'open' : 'closed'"
+                    >
+                        @for (tag of tags; track $index) {
+                            <a class="text-sm text-text-dark">{{tag.name}}</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+    
+    <app-products></app-products>
+</main>
+
