@@ -5,7 +5,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi
 import { AppInterceptor } from './helper/interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
-import { provideClientHydration } from '@angular/platform-browser';
+import { provideClientHydration, withNoHttpTransferCache } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +19,9 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
     provideAngularSvgIcon(),
-    provideClientHydration()
+    provideClientHydration(
+      withNoHttpTransferCache()
+    ),
+    
   ]
 };

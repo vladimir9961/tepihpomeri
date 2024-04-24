@@ -9,7 +9,7 @@ export class GetTagsService {
   private http = inject(HttpClient)
   constructor() { }
 
-  public getTags(): Observable<any> {
-    return this.http.get<any>('/wc/v3/products/tags');
+  public getTags(parentCat: number): Observable<any> {
+    return this.http.get<any>(`/wc/v3/products/categories?parent=${parentCat.toString()}`);
   }
 }

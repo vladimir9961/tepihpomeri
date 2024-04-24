@@ -1,5 +1,6 @@
 import { CommonModule} from '@angular/common';
 import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 
 // Modules
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -9,11 +10,14 @@ import { socialIcons } from '../../utils/constants/social-icons.constants';
 
 // Models
 import { navigationIcons } from '../../model/navigation-icons.model';
-import { ActivatedRoute, ActivationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ActivationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 // Animations
 import { fade, slideInOut } from '../../helper/animations/mobile.animation';
 import { fadeNavigation, slideInOutNavigation } from './utils/animation/navigation.animation';
+
+// Helper
+import { handleScroll } from '../../helper/detectScroll';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -24,6 +28,8 @@ import { fadeNavigation, slideInOutNavigation } from './utils/animation/navigati
 
 })
 export class NavbarComponent implements OnInit{
+  private destroy$ = new Subject<void>();
+  
   public router: Router = inject(Router)
 
   public icons: navigationIcons[] = socialIcons.SOCIAL_ICONS;
@@ -40,7 +46,9 @@ export class NavbarComponent implements OnInit{
   public isCurrentRouteHome: boolean = false;
 
   constructor(){ 
-    this.router.events.subscribe((event: any) => {
+    this.router.events
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((event: any) => {
       if (event instanceof ActivationEnd && event.snapshot && event.snapshot.routeConfig) {
         if(event.snapshot.routeConfig.path === 'pocetna') {
           this.isCurrentRouteHome = true
@@ -53,9 +61,7 @@ export class NavbarComponent implements OnInit{
 
   ngOnInit(): void {
     this.onWindowScroll()
-
   }
-
 
   @HostListener('document:click', ['$event'])
   public clickOutside(event: Event): void {
@@ -64,26 +70,12 @@ export class NavbarComponent implements OnInit{
     }
   }
 
-
   @HostListener('window:scroll', ['$event'])
   private onWindowScroll(): void {
-    if (typeof window !== 'undefined') {
-      const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    
-      if (currentScrollPosition > this.previousScrollPosition) {
-
-        this.isBottomNavFixed = true;
-        this.isScrolledToTop = true;
-      } else if (currentScrollPosition < this.previousScrollPosition) {
-      
-        if (currentScrollPosition === 0) {
-          this.isScrolledToTop = false;
-        }
-        this.isBottomNavFixed = false;
-      }
-    
-      this.previousScrollPosition = currentScrollPosition;
-    }
+    const { isBottomNavFixed, isScrolledToTop, previousScrollPosition } = handleScroll(this.previousScrollPosition, this.isBottomNavFixed, this.isScrolledToTop);
+    this.isBottomNavFixed = isBottomNavFixed;
+    this.isScrolledToTop = isScrolledToTop;
+    this.previousScrollPosition = previousScrollPosition;
   }
 
   public toggleMobileMenu(): void {
