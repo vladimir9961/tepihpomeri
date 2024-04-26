@@ -1,6 +1,7 @@
+
+import { CommonModule } from '@angular/common';
 import { Component, Input, output } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 // Animations
@@ -95,7 +96,7 @@ export class AsideNavComponent {
   public getTags(): void {
     this._getTags.getTags(this.productPage)
     .pipe(takeUntil(this.destroy$))
-    .subscribe(subcategories => {
+    .subscribe((subcategories: any) => {
       this.subcategories = subcategories
     })
   }

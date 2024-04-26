@@ -1,6 +1,8 @@
 <article class="wrapper md:grid xs:flex xs:flex-col xs:items-center">
     @for (product of products; track product.title)  {
-        <div class="max-w-[300px]">
+        <div class="max-w-[300px] cursor-pointer"
+        [routerLink]="'/proizvod/' + product.id.toString()"
+         >
               <img [src]="product?.images[0]?.src" alt="" loading="lazy">
 
               <h4 class="pl-[12px] text-primary-100 text-sm italic font-bold">{{product?.name}}</h4>

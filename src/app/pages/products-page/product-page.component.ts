@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // Services
 import { GetProductsService } from '../../services/products-services/get-products.service';
+
+// Models
+import { Product } from '../../model/products.model';
+
+// Enums
+import { product_enums } from '../../utils/enums/products.enums';
 
 // Components
 import { ProductsComponent } from '../../components/products/products.component';
 import { PlaceholderComponent } from '../../components/placeholder/placeholder.component';
 import { AsideNavComponent } from '../../components/aside-nav/aside-nav.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-rugs',
   standalone: true,
@@ -27,7 +33,7 @@ export class RugsComponent implements OnInit{
   
   private destroy$ = new Subject<void>();
 
-  public products: any[] = []
+  public products: Product[] = []
 
   private productsToDisplay: number = 10
   public isRouteId: number = 0;
@@ -49,7 +55,7 @@ export class RugsComponent implements OnInit{
 
   public setRoute(routeName: any): void {
     switch(routeName.name){
-      case 'blankets':
+      case product_enums.BLANKETS:
         this.isRouteId = 18;
       break;
 
@@ -66,7 +72,10 @@ export class RugsComponent implements OnInit{
       
       arrayOfTags.forEach((tag: any) => {
         
-        this.getProductsByTag(tag.id).subscribe((getProducts: any) => {
+        this.getProductsByTag(tag.id)
+        .pipe(
+          takeUntil(this.destroy$))
+        .subscribe((getProducts: any) => {
 
           this.products = [...this.products, getProducts[0]];
         });
