@@ -1,12 +1,15 @@
 import { CommonModule} from '@angular/common';
 import { Component, HostListener, inject, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 // Modules
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 // Constants
 import { socialIcons } from '../../utils/constants/social-icons.constants';
+
+// Enums
+import { product_enums } from '../../utils/enums/products.enums';
 
 // Models
 import { navigationIcons } from '../../model/navigation-icons.model';
@@ -18,10 +21,23 @@ import { fadeNavigation, slideInOutNavigation } from './utils/animation/navigati
 
 // Helper
 import { handleScroll } from '../../helper/detectScroll';
+
+// Store
+import { Store } from '@ngrx/store';
+import { ProductCart, Products } from '../../model/product-cart.model';
+
+// Components
+import { CartComponent } from '../cart/cart.component';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, AngularSvgIconModule, RouterLink, RouterLinkActive],
+  imports: [
+    CommonModule, 
+    AngularSvgIconModule, 
+    RouterLink, 
+    RouterLinkActive,
+    CartComponent
+  ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
   animations: [fade, slideInOut, fadeNavigation, slideInOutNavigation]
@@ -44,8 +60,41 @@ export class NavbarComponent implements OnInit{
   public isMagiceLineHovered: boolean = false;
 
   public isCurrentRouteHome: boolean = false;
+  
+  public product$: Observable<ProductCart[]>
+  
+  public cart: Products[] = []
+  public isCartOpened: boolean = false
 
+  private store = inject(Store)
+  
   constructor(){ 
+    this.checkRoute()
+
+    this.product$ = this.store.select(product_enums.CART);
+  }
+
+  ngOnInit(): void {
+    this.onWindowScroll()
+
+    this.getCart()
+  }
+
+  private getCart(): void {
+    this.product$
+    .pipe(
+      takeUntil(this.destroy$)
+    )
+    .subscribe((res: any) =>{ 
+      this.cart = res.product
+    })
+  }
+
+  public openCart(): void {
+    this.isCartOpened = !this.isCartOpened
+  }
+
+  public checkRoute(): void {
     this.router.events
     .pipe(takeUntil(this.destroy$))
     .subscribe((event: any) => {
@@ -57,10 +106,6 @@ export class NavbarComponent implements OnInit{
         }
       }
     });
-  }
-
-  ngOnInit(): void {
-    this.onWindowScroll()
   }
 
   @HostListener('document:click', ['$event'])
@@ -93,5 +138,4 @@ export class NavbarComponent implements OnInit{
   public magic_line(showHideMagicLIne: boolean): void {
     this.isMagiceLineHovered = showHideMagicLIne
   }
-  
 }

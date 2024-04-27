@@ -13,13 +13,15 @@
 
                 <h2>{{product?.regular_price}} RSD</h2>
               
-                <div>
-                    <p class="text-text-dark text-sm font-bold">Duzina: {{product?.dimensions.length}} cm</p>
-                    <p class="text-text-dark text-sm font-bold">Sirina: {{product?.dimensions.width}} cm</p>
-                </div>
+                @if (product?.dimensions.length && product?.dimensions.width) {
+                    <div>
+                        <p class="text-text-dark text-sm font-bold">Duzina: {{product?.dimensions.length}} cm</p>
+                        <p class="text-text-dark text-sm font-bold">Sirina: {{product?.dimensions.width}} cm</p>
+                    </div>
+                }
 
                 <div>
-                    <h4 class="font-semibold text-sm">Opis proizvoda:</h4>
+                    <h4 class="font-semibold text-sm text-text-dark">Opis proizvoda:</h4>
                     <div class="description" [innerHTML]="product?.description"></div>
                 </div>
 
@@ -65,6 +67,49 @@
                             Odličan kvalitet
                         </p>
                     </div>
+
+                    <div class="flex items-center mt-[50px] mb-[20px]">
+                        <div class="grid">
+
+                        <h4 class="font-medium text-text-dark text-sm mb-[6px]">Količina:</h4>
+
+                        <div class="flex border">
+                            <div
+                            class="text-text-dark text-2xl select-none w-[40px] h-[40px] flex justify-center items-center cursor-pointer"
+                            (click)="counterQuantity('minus')"
+                            >
+                                -
+                            </div>
+
+                            <div class="text-text-dark select-none w-[40px] h-[40px] flex justify-center items-center border-l border-r">
+                               {{counter}}
+                            </div>
+
+                            <div 
+                            class="text-text-dark text-2xl select-none w-[40px] h-[40px] flex justify-center items-center cursor-pointer"
+                            (click)="counterQuantity()"
+                            >
+                                +
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+
+                    <div class="flex items-center">
+                        <button 
+                        class="border p-[15px] rounded-md w-full 
+                        border-primary-100 hover:bg-primary-100
+                        transition-colors duration-300 hover:text-white"
+                        (click)="addToCart(isSelectedAlredy, product)"
+                        >
+                        @if (isSelectedAlredy) {
+                            Ukloni iz korpe
+                        } @else {
+                            Dodaj u korpu
+                        }
+                        </button>
+                    </div>
             </div>
 
 
@@ -78,12 +123,14 @@
     
     <div class="flex">
         @for (similarProduct of similarProducts; track $index) {
-            <div>
+            <div 
+            [routerLink]="'/proizvod/' + similarProduct.id.toString()"
+            class="cursor-pointer">
                 <img [src]="similarProduct.images ? similarProduct.images[0].src : ''">
 
-                <h3>{{product?.name}}</h3>
-                <h3>{{product?.price}} RSD</h3>
-            </div>
+                <h3 class="text-sm font-medium">{{similarProduct?.name}}</h3>
+                <h3 class="text-xs">{{similarProduct?.price}} RSD</h3>
+            </div>           
         }
     </div>
 </section>

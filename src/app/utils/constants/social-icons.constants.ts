@@ -24,6 +24,10 @@ export class socialIcons {
         {
             svg: '/assets/svg/mail.svg',
             data: 'tepihpomeri@tepihpomeri.com'
+        },
+        {
+            svg: '/assets/svg/cart.svg',
+            data: 'cart'
         }
     ] 
 }

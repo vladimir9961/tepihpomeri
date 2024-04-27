@@ -30,6 +30,7 @@ module.exports = {
 
       boxShadow: {
         'custom': '0px 0px 14px #1F1B1B4D',
+        'lighter-box-shadow': '0 0 1px 1px rgb(217 217 217)'
       },
     },
   },

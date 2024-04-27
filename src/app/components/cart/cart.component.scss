@@ -1,0 +1,7 @@
+.wrapper{
+    height: calc(100% - 35px);
+    
+    .container {
+    grid-template-columns: 90px 150px 30px;
+    }
+}

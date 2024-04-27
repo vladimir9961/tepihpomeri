@@ -1,9 +1,9 @@
-<div  class="flex flex-col items-center">
+<div [formGroup]="form" class="flex flex-col items-center">
     <form 
     action="javascript:void(0)"
     class="h-[500px] flex flex-col gap-[20px] mt-[50px] pt-[50px]">
         <div class="grid">
-            <label>Full Name</label>
+            <label>Puno ime i prezime</label>
 
             <input 
             formControlName="from_name"
@@ -11,7 +11,7 @@
             type="text" 
             name="name"
             id="name"
-            placeholder="Full Name"
+            placeholder="Petar Petrovic"
             />
         </div>
 
@@ -29,34 +29,59 @@
         </div>
 
         <div class="grid">
-            <label>Subject</label>
+            <label>Broj telefona</label>
             
             <input 
-            formControlName="subject"
+            formControlName="number"
             class="border"
-            type="subject" 
-            name="subject"
-            id="subject"
-            placeholder="Subject"
+            type="number" 
+            name="text"
+            id="number"
+            placeholder="063-333-333"
             />
         </div>
 
         <div class="grid">
-            <label>Message</label>
+            <label>Adresa ulica i broj</label>
+            
+            <input 
+            formControlName="address"
+            class="border"
+            type="text" 
+            name="address"
+            id="address"
+            placeholder="Adresa"
+            />
+        </div>
+
+        <div class="grid">
+            <label>Poštanski broj</label>
+            
+            <input 
+            formControlName="zip_number"
+            class="border"
+            type="text" 
+            name="zip_number"
+            id="zip_number"
+            placeholder="Poštanski broj"
+            />
+        </div>
+
+        <div class="grid">
+            <label>Poruka</label>
             
             <input 
             formControlName="message"
             class="border"
-            type="message" 
+            type="text" 
             name="message"
             id="message"
-            placeholder="Message"
+            placeholder="Dodatne inforimacije"
             />
         </div>
     </form>
 
     <div>
-        <button type="submit">Submit</button>
+        <button  (click)="send()" type="submit">Posalji</button>
     </div>
-    
 </div>

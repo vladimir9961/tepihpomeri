@@ -6,7 +6,8 @@ export interface Product {
     description?: string;
     dimensions?: {width: number, height: number}
     length: number
-    related_ids: number[]
+    related_ids: number[];
+    price: string;
   }
 
 interface images {

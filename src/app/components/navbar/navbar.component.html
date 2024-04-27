@@ -3,14 +3,14 @@
   <div class="mx-auto relative">
 
     <!-- Top Nav -->
-    <div class="top-nav w-full top-0 z-10 flex justify-between py-[10px] 
+    <div class="top-nav h-[70px] w-full top-0 z-10 flex justify-between items-center py-[10px] 
     px-[10px] lg:px-[60px] md:px-[60px] sm:px-[30px] xl:px-[80px] 2xl:px-[120px]">
 
       <div class="flex items-center gap-x-1">
 
         <svg-icon src="/assets/svg/delivery.svg" [svgStyle]="{
-          'width.px': 30,
-          'height.px': 30
+          'width.px': 33,
+          'height.px': 33
         }"></svg-icon> 
 
         <span class="text-white font-semibold italic text-xs">Dostava na teritoriji cele Srbije</span>
@@ -18,16 +18,43 @@
     
       <div class="flex gap-[4px]">
         @for (icon of icons; track icon){
+          @if (icon.data !== 'cart') {
 
             <svg-icon 
             class="cursor-pointer"
             [src]="icon.svg" 
             [svgStyle]="{
-              'width.px': 30,
-              'height.px': 30
+              'width.px': 33,
+              'height.px': 33
             }"></svg-icon>
+          }
+            @if (icon.data === 'cart') {
+              <div class="relative">
+                <svg-icon 
+                class="cursor-pointer"
+                [src]="icon.svg" 
+                (click)="openCart()"
+                [svgStyle]="{
+                  'width.px': 33,
+                  'height.px': 33
+                }"></svg-icon>
 
-        }@empty {
+                <div 
+                  class="absolute top-[-10px] right-[-10px] bg-red-500 rounded-full 
+                  w-5 h-5 flex justify-center items-center text-white text-xs font-bold select-none"
+                  >
+                  {{cart.length}}
+                </div>
+
+                @if (isCartOpened && cart.length) {
+                    <app-cart></app-cart>
+                }
+
+              </div>
+
+
+            }
+        } @empty {
           <li>No items found</li>
           }
                 
@@ -36,7 +63,7 @@
 
     <!-- Bottom nav fixed top -->
     <div 
-    class="bg-white max-sm:hidden top-[50px] flex absolute z-10 items-center 
+    class="bg-white max-sm:hidden top-[70px] flex absolute z-[2] items-center 
     w-[100%] px-[10px] xl:px-[80px] 2xl:px-[120px]
     md:px-[60px]"
     [ngClass]="{'transparent-nav': isCurrentRouteHome}"
@@ -127,7 +154,7 @@
     <!-- Bottom nav on scroll -->
     <div 
       [ngClass]="isBottomNavFixed ? 'nav-fixed' : 'nav-top'" 
-      class="hidden top-[50px] md:flex absolute z-10 items-center 
+      class="hidden top-[70px] md:flex absolute z-10 items-center 
       w-[100%] px-[10px] xl:px-[80px] 
       md:px-[60px] 2xl:px-[120px]"
       [@slideInOutNav]="isBottomNavFixed && isScrolledToTop ? 'true' : 'false'" 
