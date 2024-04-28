@@ -1,0 +1,93 @@
+<aside 
+[@expandSideBar]="isSideBarOpen ? 'open' : 'closed'"
+class="w-[250px] p-[5px] transform md:translate-x-0 md:animate-none"
+>
+    <div>
+        <div class="flex items-center gap-[5px] px-[4px]">
+            <svg-icon 
+            src="/assets/svg/filter.svg"
+            [svgStyle]="{
+                'width.px': 10,
+                'height.px': 10
+            }"
+            ></svg-icon>
+
+            <h1 class="sm:text-sm md:text-xs font-medium text-primary-200 select-none">Filteri</h1>
+        </div>
+
+        <div class="w-[240px] my-[10px] h-[1px] bg-[#1F1B1B33]"></div>
+    
+        <div>
+            <div class="px-[5px] text-primary-100">
+                <div 
+                    class="flex items-center justify-between cursor-pointer" 
+                    (click)="toggleDropdowns('cathegory')">
+                    <h3 class="sm:text-sm md:text-xs font-bold select-none">Kategorije</h3>
+                    
+                    <svg-icon 
+                    src="/assets/svg/dropdown-icon.svg"
+                    [ngClass]="{'rotate-180 transition-transform duration-300': isExpandedCathegory}"
+                    ></svg-icon>
+                </div>
+
+                <div 
+                class="flex flex-col pl-[5px] mt-[5px] gap-[4px] overflow-hidden"
+                [@toggleDropdown]="isExpandedCathegory ? 'open' : 'closed'"
+                >
+                    <a 
+                    routerLink="/tepisi" routerLinkActive="font-medium" 
+                    class="sm:text-sm md:text-xs text-text-dark ">Tepisi</a>
+
+                    <a 
+                    routerLink="/cebad" routerLinkActive="font-medium" class="sm:text-sm md:text-xs text-text-dark">Ćebad</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-[240px] my-[10px] h-[1px] bg-[#1F1B1B33]"></div>
+
+        <div>
+            <div class="px-[5px] text-primary-100" 
+            >
+                <div  class="flex items-center justify-between cursor-pointer" 
+                (click)="toggleDropdowns('subcathegorie')">
+                    <h3 class="sm:text-sm md:text-xs font-bold select-none">Tags</h3>
+                        <svg-icon 
+                        src="/assets/svg/dropdown-icon.svg"
+                        [ngClass]="{'rotate-180 transition-transform duration-300': isExpandedTags}"
+                        ></svg-icon>
+                </div>
+                    
+                <div class="flex flex-col pl-[5px] mt-[5px] gap-[4px] overflow-hidden"
+                [@toggleDropdown]="isExpandedTags ? 'open' : 'closed'"
+                >
+                    @for (tag of subcategories; track $index) {
+                        <div class="flex items-center gap-[10px]" (click)="subCathegorySelcted($event, tag)">
+                            <label class="container">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label> 
+
+                            <a 
+                            class="sm:text-sm md:text-xs font-semibold text-text-dark">{{tag.name}}</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hidden open-sidebar" (click)="expandSideBar()">
+        <svg-icon src="/assets/svg/side-icon.svg" 
+        ></svg-icon>
+
+        <svg-icon 
+        class="arrow"
+        src="/assets/svg/dropdown-icon.svg"
+        [svgStyle]="{
+            'width.px': 20,
+            'height.px': 20
+        }"
+        [ngClass]="{'rotate': isSideBarOpen}"
+        ></svg-icon>
+    </div>
+</aside>

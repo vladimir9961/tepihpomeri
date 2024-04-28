@@ -2,13 +2,15 @@
   <!-- Desktop navigation -->
   <div class="mx-auto relative">
 
-    <div class="flex justify-between py-[10px] px-[10px] lg:px-[60px] md:px-[60px] sm:px-[30px] xl:px-[200px]">
+    <!-- Top Nav -->
+    <div class="top-nav h-[70px] w-full top-0 z-10 flex justify-between items-center py-[10px] 
+    px-[10px] lg:px-[60px] md:px-[60px] sm:px-[30px] xl:px-[80px] 2xl:px-[120px]">
 
       <div class="flex items-center gap-x-1">
 
         <svg-icon src="/assets/svg/delivery.svg" [svgStyle]="{
-          'width.px': 30,
-          'height.px': 30
+          'width.px': 33,
+          'height.px': 33
         }"></svg-icon> 
 
         <span class="text-white font-semibold italic text-xs">Dostava na teritoriji cele Srbije</span>
@@ -16,31 +18,60 @@
     
       <div class="flex gap-[4px]">
         @for (icon of icons; track icon){
+          @if (icon.data !== 'cart') {
 
             <svg-icon 
             class="cursor-pointer"
             [src]="icon.svg" 
             [svgStyle]="{
-              'width.px': 30,
-              'height.px': 30
+              'width.px': 33,
+              'height.px': 33
             }"></svg-icon>
+          }
+            @if (icon.data === 'cart') {
+              <div class="relative">
+                <svg-icon 
+                class="cursor-pointer"
+                [src]="icon.svg" 
+                (click)="openCart()"
+                [svgStyle]="{
+                  'width.px': 33,
+                  'height.px': 33
+                }"></svg-icon>
 
-        }@empty {
+                <div 
+                  class="absolute top-[-10px] right-[-10px] bg-red-500 rounded-full 
+                  w-5 h-5 flex justify-center items-center text-white text-xs font-bold select-none"
+                  >
+                  {{cart.length}}
+                </div>
+
+                @if (isCartOpened && cart.length) {
+                    <app-cart></app-cart>
+                }
+
+              </div>
+
+
+            }
+        } @empty {
           <li>No items found</li>
           }
                 
       </div>
     </div>
 
+    <!-- Bottom nav fixed top -->
     <div 
-    class="max-sm:hidden top-[50px] flex absolute z-10 items-center 
-    w-[100%] px-[10px] xl:px-[200px] 
+    class="bg-white max-sm:hidden top-[70px] flex absolute z-[2] items-center 
+    w-[100%] px-[10px] xl:px-[80px] 2xl:px-[120px]
     md:px-[60px]"
+    [ngClass]="{'transparent-nav': isCurrentRouteHome}"
   >
     <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
       <div class="flex flex-shrink-0 items-center relative">
         <div class="absolute h-full left-0">
-          @if(isBottomNavFixed){ 
+          @if(isBottomNavFixed || !isCurrentRouteHome){ 
             <svg-icon class="absolute top-[10px]" src="/assets/svg/logo/logo-dark.svg"></svg-icon>
         } @else {
             <svg-icon class="absolute top-[10px]" src="/assets/svg/logo/logo-light.svg"></svg-icon>
@@ -50,40 +81,46 @@
      
 
         <ul 
-        class="
-        nav-routes sm:ml-6 w-fullflex 
-        justify-center items-center h-[45px] w-[100%] 
-        flex new-magic-line-selected"
-        [ngClass]="{'dark-nav': isBottomNavFixed} "
-        (mouseenter)="magic_line(true)"
-        (mouseleave)="magic_line(false)"
+          class="
+          nav-routes sm:ml-6 w-full 
+          justify-center items-center h-[45px]
+          flex new-magic-line-selected"
+          [ngClass]="{'dark-nav': isBottomNavFixed} "
+          (mouseenter)="magic_line(true)"
+          (mouseleave)="magic_line(false)"
         >
             <a 
             routerLink="/pocetna" 
             routerLinkActive="active new-magic-line-selected-home" 
             [routerLinkActiveOptions]="{exact: true}" 
             ariaCurrentWhenActive="page" 
-            
-            class="px-[8px] text-gray-300 hover:text-white text-14 flex items-center font-semibold italic" 
+            class="px-[8px] text-black text-14 flex items-center 
+            font-semibold italic select-none" 
+            [ngClass]="{'text-gray-300 hover:text-white': isCurrentRouteHome}"
             >Početna</a>
           
           <li class="px-[8px]">
             <div class="relative cursor-pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (clickOutside)="closeDropdown()">
-              <!-- Dropdown Button -->
-              <button  class="text-gray-300 text-14 flex items-center font-semibold italic hover:text-white" (click)="toggleDropdown()">
+              <button 
+              class="text-black text-14 flex items-center 
+              font-semibold italic select-none" 
+              [ngClass]="{'text-gray-300 hover:text-white': isCurrentRouteHome}"
+              (click)="toggleDropdown()">
                 Proizvodi
               </button>
               
-              <!-- Dropdown Menu -->
               <div [ngClass]="{'open-dropdown':isDropdownOpen}" class="hidden absolute left-0 mt-2 w-[130px] bg-primary-100 rounded-xs shadow-lg z-10">
-                <a routerLink="tepisi" routerLinkActive="text-white"  class="block px-[8px] py-[8px] text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Tepisi</a>
+                <a routerLink="tepisi" routerLinkActive="text-white" 
+                 class="block px-[8px] py-[8px] text-xs hover:text-white 
+                 text-gray-300 font-semibold italic select-none" 
+                 (click)="toggleDropdown()"
+                 >Tepisi</a>
                 
                 <div class="h-[1px] w-[120px] relative left-[5px] bg-slate-100"></div>
 
                 <a routerLink="cebad" routerLinkActive="text-white"  class="block px-[8px] py-[8px] text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Ćebad</a>
               </div>
             </div>
-            
           </li>
 
             <a 
@@ -91,8 +128,9 @@
             routerLinkActive="active new-magic-line-selected-about-us" 
             [routerLinkActiveOptions]="{exact: true}" 
             ariaCurrentWhenActive="page" 
-            class="px-[8px] text-gray-300 hover:text-white text-14 
-            flex items-center font-semibold italic"
+            class="px-[8px] text-black text-14 
+            flex items-center font-semibold italic select-none"
+            [ngClass]="{'text-gray-300 hover:text-white': isCurrentRouteHome}"
             >O nama</a>
           
             <a 
@@ -100,20 +138,25 @@
             routerLinkActive="active new-magic-line-selected-contact" 
             [routerLinkActiveOptions]="{exact: true}" 
             ariaCurrentWhenActive="page" 
-            class="text-gray-300 hover:text-white text-14 flex items-center 
-            font-semibold italic px-[8px]"
+            class="text-black text-14 flex items-center 
+            font-semibold italic px-[8px] select-none"
+            [ngClass]="{'text-gray-300 hover:text-white': isCurrentRouteHome}"
             >Kontakt</a>
 
-            <div class="new-magic-line"></div>
+            <div 
+            class="new-magic-line"
+            [ngClass]="isCurrentRouteHome ? 'bg-white' : 'bg-black'"
+            ></div>
         </ul>
     </div>
   </div>
     
+    <!-- Bottom nav on scroll -->
     <div 
       [ngClass]="isBottomNavFixed ? 'nav-fixed' : 'nav-top'" 
-      class="max-sm:hidden top-[50px] flex absolute z-10 items-center 
-      w-[100%] px-[10px] xl:px-[200px] 
-      md:px-[60px]"
+      class="hidden top-[70px] md:flex absolute z-10 items-center 
+      w-[100%] px-[10px] xl:px-[80px] 
+      md:px-[60px] 2xl:px-[120px]"
       [@slideInOutNav]="isBottomNavFixed && isScrolledToTop ? 'true' : 'false'" 
       [@fadeNavigation]="isBottomNavFixed && isScrolledToTop ? 'true' : 'false'"
     >
@@ -146,17 +189,17 @@
             <li class="px-[8px]">
               <div class="relative cursor-pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (clickOutside)="closeDropdown()">
                 <!-- Dropdown Button -->
-                <button  class="text-black text-14 flex items-center font-semibold italic hover:text-white" (click)="toggleDropdown()">
+                <button  class="text-black text-14 flex items-center font-semibold italic " (click)="toggleDropdown()">
                   Proizvodi
                 </button>
                 
                 <!-- Dropdown Menu -->
                 <div [ngClass]="{'open-dropdown':isDropdownOpen}" class="hidden absolute left-0 mt-2 w-[130px] bg-primary-100 rounded-xs shadow-lg z-10">
-                  <a routerLink="tepisi" routerLinkActive="text-white"  class="block px-[8px] py-[8px] text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Tepisi</a>
+                  <a routerLink="tepisi" routerLinkActive="text-white"  class="text-light block px-[8px] py-[8px] text-xs hover:text-white font-semibold italic" (click)="toggleDropdown()">Tepisi</a>
                   
                   <div class="h-[1px] w-[120px] relative left-[5px] bg-slate-100"></div>
 
-                  <a routerLink="cebad" routerLinkActive="text-white"  class="block px-[8px] py-[8px] text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Ćebad</a>
+                  <a routerLink="cebad" routerLinkActive="text-white"  class="text-light block px-[8px] py-[8px] text-xs hover:text-white font-semibold italic" (click)="toggleDropdown()">Ćebad</a>
                 </div>
               </div>
               
@@ -189,11 +232,13 @@
   </div>
 
   <!-- Mobile menu toggle button -->
-  <div class="sm:hidden flex justify-end" id="mobileMenuButton">
+  <div class="sm:hidden fixed right-0 top-[50px] z-10" id="mobileMenuButton">
     <button 
     (click)="toggleMobileMenu()"
     type="button" class="focus:outline-none relative inline-flex 
-    items-center rounded-md p-2 text-gray-400 hover:text-white m-0">
+    items-center rounded-md p-2 text-primary-100 m-0"
+    [ngClass]="{'text-white': isMobileMenuOpen}"
+    >
       <!-- Hamburger menu icon -->
       <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -207,10 +252,12 @@
 
   <!-- Mobile navigation -->
   <div class="sm:hidden relative" >
-    <ng-container *ngIf="isMobileMenuOpen">
+    @if (isMobileMenuOpen) {
       <div [@fade] [@slideInOut] class="mobile-menu " 
-      class="space-y-1 top-[-4px] gap-[40px] bg-primary-100 px-2 pb-3 pt-2 flex flex-col items-center justify-start absolute z-10 w-full h-[100vh]">
-        <button (click)="toggleMobileMenu()" routerLink="/pocetna" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class=" text-gray-300 px-3 py-2 text-sm font-semibold italic" >Početna</button>
+      class="space-y-1 top-[0] bottom-0 gap-[40px] bg-primary-100 px-2 pb-3 pt-2 flex flex-col items-center justify-center fixed z-[2] w-full h-[100vh]">
+        <button (click)="toggleMobileMenu()" routerLink="/pocetna" 
+        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+        ariaCurrentWhenActive="page" class=" text-gray-300 px-3 py-2 text-sm font-semibold italic" >Početna</button>
         
         <div class="relative cursor-pointer flex flex-col items-center" routerLinkActive="active-child" [routerLinkActiveOptions]="{exact: true}" (clickOutside)="closeDropdown()">
           <!-- Dropdown Button -->
@@ -220,8 +267,8 @@
           
           <!-- Dropdown Menu -->
           <div [ngClass]="{'open-dropdown-mobile':isDropdownOpen}" class="hidden left-0 mt-2 z-10">
-            <a routerLink="tepisi" routerLinkActive="text-white"  class="block px-4 py-2 text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Tepisi</a>
-            <a routerLink="cebad" routerLinkActive="text-white"  class="block px-4 py-2 text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Ćebad</a>
+            <a (click)="toggleMobileMenu()" routerLink="tepisi" routerLinkActive="text-white"  class="block px-4 py-2 text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Tepisi</a>
+            <a (click)="toggleMobileMenu()" routerLink="cebad" routerLinkActive="text-white"  class="block px-4 py-2 text-xs hover:text-white text-gray-300 font-semibold italic" (click)="toggleDropdown()">Ćebad</a>
           </div>
         </div>
         
@@ -229,7 +276,7 @@
         
         <button (click)="toggleMobileMenu()" routerLink="/kontakt" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" ariaCurrentWhenActive="page" class="text-gray-300 px-3 py-2 text-sm font-semibold italic">Kontakt</button>
       </div>
-    </ng-container>
+    }
   </div>
 
   

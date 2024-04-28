@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { socialIcons } from '../../constants/social-icons.constants';
+import { socialIcons } from '../../utils/constants/social-icons.constants';
 import { navigationIcons } from '../../model/navigation-icons.model';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CommonModule } from '@angular/common';

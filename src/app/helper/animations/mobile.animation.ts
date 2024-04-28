@@ -6,16 +6,16 @@ export const slideInOut = trigger('slideInOut', [
     animate('0.3s ease-in', style({ transform: 'translateX(0%)' }))
   ]),
   transition(':leave', [
-    animate('0.3s ease-out', style({ transform: 'translateX(100%)', width: '100%' }))
+    animate('0.3s ease-out', style({ transform: 'translateX(100%)', width: '100%'}))
   ])
 ]);
 
 export const fade = trigger('fade', [
     transition(':enter', [
-      style({ opacity: 0 }), // initial state
-      animate('1s ease', style({ opacity: 1 })) // final state
+      style({ opacity: 0 }),
+      animate('1s ease', style({ opacity: 1 })) 
     ]),
     transition(':leave', [
-      animate('0s ease', style({ opacity: 0 })) // final state
+      animate('0s ease', style({ opacity: 0 }))
     ])
   ]);

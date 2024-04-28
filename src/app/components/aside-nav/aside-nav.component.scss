@@ -1,0 +1,89 @@
+@import '../../../theme/variables.scss';
+
+/* Customize the label (the container) */
+.container {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    user-select: none;
+ }
+ 
+ /* Hide the browser's default checkbox */
+ .container input {
+   position: absolute;
+   opacity: 0;
+   cursor: pointer;
+   height: 0;
+   width: 0;
+ }
+ 
+ /* Create a custom checkbox */
+ .checkmark {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 15px;
+   width: 15px;
+   background-color: #ccc;
+   border-radius: 3px;
+ }
+ 
+ /* When the checkbox is checked, add a blue background */
+ .container input:checked ~ .checkmark {
+   background-color: $text-dark;
+ }
+ 
+ /* Create the checkmark/indicator (hidden when not checked) */
+ .checkmark:after {
+   content: "";
+   position: absolute;
+   display: none;
+ }
+ 
+ /* Show the checkmark when checked */
+ .container input:checked ~ .checkmark:after {
+   display: block;
+ }
+ 
+ /* Style the checkmark/indicator */
+ .container .checkmark:after {
+   left: 5px;
+   top: 1px;
+   width: 5px;
+   height: 10px;
+   border: solid $white;
+   border-width: 0 2px 2px 0;
+   transform: rotate(45deg);
+ }
+
+ @media (max-width: 770px) {
+    aside {
+      position: fixed;
+      transform: translateX(-260px);
+      background: $white;
+      height: 100vh;
+    }
+
+    .open-sidebar {
+      position: fixed;
+      right: -43px;
+      top: 29%;
+      display: flex;
+
+      .arrow{
+        position: absolute;
+        top: 23px;
+        left: 11px;
+        transform: rotate(-90deg);
+      }
+
+      .rotate{
+        transform:rotate(90deg);
+        transition: transform 0.3s ease;
+        left: 6px;
+      }
+  }    
+}

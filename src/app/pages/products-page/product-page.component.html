@@ -1,0 +1,19 @@
+<main 
+infiniteScroll
+[infiniteScrollDistance]="2"
+[infiniteScrollThrottle]="50"
+(scrolled)="onScroll()"
+class=" sm:grid xs:flex xs:flex-col h-full gap-[20px] mt-[95px] lg:px-[60px] md:px-[60px] 
+sm:px-[30px] xl:px-[80px] mb-[60px] 2xl:px-[120px] 840px:bg-black">
+    
+    <app-aside-nav [productPage]="isRouteId" (tagSelected)="tagIsSelected($event)"></app-aside-nav>
+
+    @defer (on viewport) {
+        <app-products [products]="products"></app-products>
+    }
+
+    @placeholder {
+        <app-placeholder></app-placeholder>
+    }
+</main>
+
