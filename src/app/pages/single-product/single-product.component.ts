@@ -16,7 +16,9 @@ import { product_enums } from '../../utils/enums/products.enums';
 
 // Store
 import { Store } from '@ngrx/store';
-import { setProduct } from '../../store/product.actions';
+import { getProduct, setProduct } from '../../store/product.actions';
+import { selectProduct } from '../../store/product.selectors';
+import { ProductStoreService } from '../../services/products-services/product-store.service';
 
 @Component({
   selector: 'app-single-product',
@@ -43,9 +45,12 @@ export class SingleProductComponent {
   private store = inject(Store)
   private getProductService = inject(GetProductsService)
   private route = inject(ActivatedRoute)
+  private productsService = inject(ProductStoreService)
 
   constructor() {
-    this.product$ = this.store.select(product_enums.CART);
+    this.store.dispatch(getProduct());
+
+    this.product$ = this.store.select(selectProduct);
   }
 
   ngOnInit(): void {
@@ -75,9 +80,11 @@ export class SingleProductComponent {
       takeUntil(this.destroy$)
     )
     .subscribe((res) =>{ 
-      this.productsInStore = res
+      this.productsInStore = []
 
-      if(!this.checkIfProductIsAlredyInStore(this.product.id)) this.isSelectedAlredy = false;
+      if(res.length > 0) this.productsInStore = res
+
+      this.isSelectedAlredy = this.checkIfProductIsAlredyInStore(this.product.id) 
     })
   }
 
@@ -105,48 +112,56 @@ export class SingleProductComponent {
     }
   }
 
-  public addToCart(isInCart: boolean, product: any): void {
+  public addRemoveFromCart(isInCart: boolean, product: any): void {
     if(isInCart){
-      this.removeProductFromCart(product.id);
+      // this.removeProductFromCart(product.id);
+      this.productsInStore = this.productsService.removeProductFromCart(product.id)
     } else {
-      this.addProductInCart(product)
+      
+      this.productsInStore = this.productsService.addProduct(product, this.counter)
+      // this.addProductInCart(product)
     }
   }
 
-  private removeProductFromCart(productId: number): void {
-    this.productsInStore = this.productsInStore.product.filter((product: { id: number; }) => product.id !== productId);
-
-    this.store.dispatch(setProduct({product: this.productsInStore}));
-
-    this.isSelectedAlredy = false;
-  }
-
-  private addProductInCart(product: any): void {
-    const addProduct =  { 
-      id: product.id,
-      name: product.name, 
-      description: product.description,
-      image: product.images[0], 
-      quantity: this.counter
-    }
-
+  // private removeProductFromCart(productId: number): void {
+  //   this.productsInStore = this.productsInStore.filter((product: { id: number; }) => product.id !== productId);
     
-    if(!this.checkIfProductIsAlredyInStore(product.id)){
-      this.productsInStore = [
-        ...this.productsInStore.product,
-        addProduct
-      ];
+  //   localStorage.setItem('products', JSON.stringify(this.productsInStore));
 
-      localStorage.setItem('product_state', JSON.stringify({product: this.productsInStore}));
+  //   this.store.dispatch(setProduct({product: this.productsInStore}));
 
-      this.store.dispatch(setProduct({product: this.productsInStore}));
+  //   this.store.dispatch(getProduct());
 
-      this.isSelectedAlredy = true;
-    }
-  }
+  // }
+
+  // private addProductInCart(product: any): void {
+  //   this.productsService.addProduct(product, this.counter)
+  //   if(!this.checkIfProductIsAlredyInStore(product.id)){
+
+  //     let addProduct =  { 
+  //       id: product.id,
+  //       name: product.name, 
+  //       description: product.description,
+  //       image: product.images[0], 
+  //       quantity: this.counter
+  //     }
+
+  //       this.productsInStore = [
+  //         ...this.productsInStore,
+  //         addProduct
+  //       ];
+
+  //     localStorage.setItem('products', JSON.stringify(this.productsInStore));
+
+  //     this.store.dispatch(setProduct({product: this.productsInStore}));
+
+  //     this.store.dispatch(getProduct());
+
+  //   }
+  // }
 
   private checkIfProductIsAlredyInStore(productId: number): boolean {
-    return this.productsInStore.product.some((product: { id: number; }) => product.id === productId);
+    return this.productsInStore.some((product: { id: number; }) => product.id === productId);
   }
   
 }

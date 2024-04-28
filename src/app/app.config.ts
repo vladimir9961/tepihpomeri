@@ -10,7 +10,9 @@ import { provideClientHydration, withNoHttpTransferCache } from '@angular/platfo
 import { AppInterceptor } from './helper/interceptor';
 // Store
 import { provideState, provideStore } from '@ngrx/store';
-import { productReducer } from './store/product.reducer';
+import { getProductData, productReducer } from './store/product.reducer';
+import { provideEffects } from '@ngrx/effects';
+import { ProductEffects } from './store/product.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,6 +29,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
 
     provideStore(),
-    provideState({ name: 'cart', reducer: productReducer})
+    provideState({ name: 'cart', reducer: productReducer}),
+    provideState({ name: 'product', reducer: getProductData}),
+    provideEffects(ProductEffects),
 ]
 };

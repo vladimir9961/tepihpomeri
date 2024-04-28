@@ -4,7 +4,9 @@ import { product_enums } from '../../utils/enums/products.enums';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { ProductCart } from '../../model/product-cart.model';
-import { setProduct } from '../../store/product.actions';
+import { getProduct, setProduct } from '../../store/product.actions';
+import { ProductStoreService } from '../../services/products-services/product-store.service';
+import { selectProduct } from '../../store/product.selectors';
 
 @Component({
   selector: 'app-cart',
@@ -19,10 +21,14 @@ export class CartComponent implements OnInit{
   public product$: Observable<ProductCart[]>
 
   private store = inject(Store)
-  public productsInStore: ProductCart[] = [];
+  public productsInStore: any = []
+
+  private productsService = inject(ProductStoreService)
   
   constructor() {
-    this.product$ = this.store.select(product_enums.CART);
+    this.store.dispatch(getProduct());
+
+    this.product$ = this.store.select(selectProduct);
   }
 
   ngOnInit(): void {
@@ -35,12 +41,12 @@ export class CartComponent implements OnInit{
       takeUntil(this.destroy$)
     )
     .subscribe((res: any) =>{ 
-      this.productsInStore = res.product
+      this.productsInStore = res
     })
   }
 
   public removeSingleItem(productId: number): void{
-    this.productsInStore = this.productsInStore.filter(product => product.id !== productId);
+    this.productsInStore = this.productsService.removeProductFromCart(productId)
 
     this.store.dispatch(setProduct({product: this.productsInStore}));
   }

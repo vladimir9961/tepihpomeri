@@ -95,7 +95,7 @@
             [routerLinkActiveOptions]="{exact: true}" 
             ariaCurrentWhenActive="page" 
             class="px-[8px] text-black text-14 flex items-center 
-            font-semibold italic" 
+            font-semibold italic select-none" 
             [ngClass]="{'text-gray-300 hover:text-white': isCurrentRouteHome}"
             >Početna</a>
           
@@ -103,7 +103,7 @@
             <div class="relative cursor-pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (clickOutside)="closeDropdown()">
               <button 
               class="text-black text-14 flex items-center 
-              font-semibold italic" 
+              font-semibold italic select-none" 
               [ngClass]="{'text-gray-300 hover:text-white': isCurrentRouteHome}"
               (click)="toggleDropdown()">
                 Proizvodi
@@ -112,7 +112,7 @@
               <div [ngClass]="{'open-dropdown':isDropdownOpen}" class="hidden absolute left-0 mt-2 w-[130px] bg-primary-100 rounded-xs shadow-lg z-10">
                 <a routerLink="tepisi" routerLinkActive="text-white" 
                  class="block px-[8px] py-[8px] text-xs hover:text-white 
-                 text-gray-300 font-semibold italic" 
+                 text-gray-300 font-semibold italic select-none" 
                  (click)="toggleDropdown()"
                  >Tepisi</a>
                 
@@ -129,7 +129,7 @@
             [routerLinkActiveOptions]="{exact: true}" 
             ariaCurrentWhenActive="page" 
             class="px-[8px] text-black text-14 
-            flex items-center font-semibold italic"
+            flex items-center font-semibold italic select-none"
             [ngClass]="{'text-gray-300 hover:text-white': isCurrentRouteHome}"
             >O nama</a>
           
@@ -139,7 +139,7 @@
             [routerLinkActiveOptions]="{exact: true}" 
             ariaCurrentWhenActive="page" 
             class="text-black text-14 flex items-center 
-            font-semibold italic px-[8px]"
+            font-semibold italic px-[8px] select-none"
             [ngClass]="{'text-gray-300 hover:text-white': isCurrentRouteHome}"
             >Kontakt</a>
 

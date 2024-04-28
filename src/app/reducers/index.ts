@@ -6,7 +6,7 @@ import {
   createSelector,
   MetaReducer
 } from '@ngrx/store';
-import { productReducer } from '../store/product.reducer';
+import { getProductData, productReducer } from '../store/product.reducer';
 
 export interface State {
 
@@ -14,6 +14,7 @@ export interface State {
 
 export const reducers: ActionReducerMap<State> = {
   cart: productReducer,
+  product: getProductData
 };
 
 

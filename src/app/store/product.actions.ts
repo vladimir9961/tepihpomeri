@@ -6,7 +6,6 @@ export const setProduct = createAction(
   props<{ product: ProductCart[] }>()
 );
 
-export const GetProduct = createAction(
-  '[Product] Get Product',
-  props<{ product: ProductCart[] }>()
+export const getProduct = createAction(
+  '[Product] Get Product'
 );

@@ -2,12 +2,13 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ProductState } from './product.reducer';
 
 export interface AppState {
-  feature: ProductState;
+  productState: ProductState; 
 }
 
-export const selectFeature = (state: AppState) => state.feature;
+// Select the feature state
+export const selectFeature = createFeatureSelector<ProductState>('product');
 
 export const selectProduct = createSelector(
   selectFeature,
-  (state: ProductState) => state.product
+  (state: ProductState) => state?.product
 );

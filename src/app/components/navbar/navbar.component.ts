@@ -28,6 +28,8 @@ import { ProductCart, Products } from '../../model/product-cart.model';
 
 // Components
 import { CartComponent } from '../cart/cart.component';
+import { getProduct } from '../../store/product.actions';
+import { selectProduct } from '../../store/product.selectors';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -71,7 +73,9 @@ export class NavbarComponent implements OnInit{
   constructor(){ 
     this.checkRoute()
 
-    this.product$ = this.store.select(product_enums.CART);
+    this.store.dispatch(getProduct());
+
+    this.product$ = this.store.select(selectProduct);
   }
 
   ngOnInit(): void {
@@ -86,7 +90,7 @@ export class NavbarComponent implements OnInit{
       takeUntil(this.destroy$)
     )
     .subscribe((res: any) =>{ 
-      this.cart = res.product
+      this.cart = res
     })
   }
 
