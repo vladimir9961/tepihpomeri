@@ -13,6 +13,7 @@ import { provideState, provideStore } from '@ngrx/store';
 import { getProductData, productReducer } from './store/product.reducer';
 import { provideEffects } from '@ngrx/effects';
 import { ProductEffects } from './store/product.effects';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,6 +32,6 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideState({ name: 'cart', reducer: productReducer}),
     provideState({ name: 'product', reducer: getProductData}),
-    provideEffects(ProductEffects),
+    provideEffects(ProductEffects), provideAnimationsAsync(),
 ]
 };

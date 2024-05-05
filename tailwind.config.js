@@ -13,7 +13,9 @@ module.exports = {
         primary: {
           100: '#1F1B1B',
           200: '#444444',
-          primaryDarken: '#1F1B1B33'
+          primaryDarken: '#1F1B1B33',
+          primaryHover: '#413838',
+          hoverLightGray: '#ededed'
         },
         
 

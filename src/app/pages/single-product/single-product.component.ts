@@ -65,6 +65,7 @@ export class SingleProductComponent {
         )
 
         .subscribe(product => {
+          console.log(product)
           this.product = product
           
           this.getCart()

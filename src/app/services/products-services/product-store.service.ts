@@ -3,7 +3,7 @@ import { getProduct, setProduct } from '../../store/product.actions';
 import { selectProduct } from '../../store/product.selectors';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { ProductCart } from '../../model/product-cart.model';
+import { ProductCart, Products } from '../../model/product-cart.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class ProductStoreService {
   }
 
 
-  public removeProductFromCart(productId: number): void {
+  public removeProductFromCart(productId: number): Products[] | any {
     this.productsInStore = this.productsInStore.filter((product: { id: number; }) => product.id !== productId);
     
     localStorage.setItem('products', JSON.stringify(this.productsInStore));
