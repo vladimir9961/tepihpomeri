@@ -1,122 +1,126 @@
 @import '../../../theme/variables.scss';
 
-.open-dropdown{
-  display: block;
+.open-dropdown {
+    display: block;
 }
 
-.open-dropdown-mobile{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.open-dropdown-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.active-child{
-  .first-child{
-    color:$white;
-    border-bottom: 1px solid $white;
-    transition: border-bottom 0.3s ease, color 0.3s ease, transform 0.3s ease;
-  }
-}
-
-.transparent-nav{
-  background: transparent;
-}
-
-.nav-fixed{
-  position: fixed;
-  top: 0;
-  display: flex;
-  background-color: $white;
-  box-shadow: 0px 1px 3px -1px rgba(31,27,27,1);
-
-  .dark-nav{
-    li{
-      a{
-        color:$text-dark;
-      }
-
-      .text-light {
+.active-child {
+    .first-child {
         color: $white;
-      }
+        border-bottom: 1px solid $white;
+        transition: border-bottom 0.3s ease, color 0.3s ease,
+            transform 0.3s ease;
     }
-  }
 }
 
-.nav-top{ 
-  position: absolute;
-  display: none;
+.transparent-nav {
+    background: transparent;
+}
+
+.nav-fixed {
+    position: fixed;
+    top: 0;
+    display: flex;
+    background-color: $white;
+    box-shadow: 0px 1px 3px -1px rgba(31, 27, 27, 1);
+
+    .dark-nav {
+        li {
+            a {
+                color: $text-dark;
+            }
+
+            .text-light {
+                color: $white;
+            }
+        }
+    }
+}
+
+.nav-top {
+    position: absolute;
+    display: none;
 }
 
 .new-magic-line {
-  width: 70px;
-  height: 1px;
-  position: absolute;
-  top: 35px;
-  transition:all 0.2s ease-in;
-  transform: translateX(-36px)
+    width: 55px;
+    height: 1px;
+    position: absolute;
+    top: 35px;
+    transition: all 0.2s ease-in;
+    transform: translateX(-30px);
 }
 
-.dark-magic-line{
-  background: $primary-dark;
+.dark-magic-line {
+    background: $primary-dark;
 }
 
 .nav-routes > a:nth-child(1):hover ~ .new-magic-line {
-  transform: translateX(-114px)
+    transform: translateX(-93px);
 }
 
 .new-magic-line-selected-home ~ .new-magic-line {
-  transform: translateX(-114px)
+    transform: translateX(-93px);
 }
 
-.nav-routes > li:nth-child(2):hover ~ .new-magic-line {
-  transform: translateX(-36px)
+.nav-routes > a:nth-child(2):hover ~ .new-magic-line {
+    transform: translateX(-30px);
+}
+
+.new-magic-line-selected-rugs ~ .new-magic-line {
+    transform: translateX(-30px);
 }
 
 .nav-routes > a:nth-child(3):hover ~ .new-magic-line {
-  transform: translateX(40px)
+    transform: translateX(30px);
 }
 
 .new-magic-line-selected-about-us ~ .new-magic-line {
-  transform: translateX(40px)
+    transform: translateX(30px);
 }
 
-
 .nav-routes > a:nth-child(4):hover ~ .new-magic-line {
-  transform: translateX(112px)
+    transform: translateX(93px);
 }
 
 .new-magic-line-selected-contact ~ .new-magic-line {
-  transform: translateX(112px)
+    transform: translateX(93px);
 }
 
-
 @media (min-width: 640px) {
-  .active {
-    transform: scale(1.1);
-    transition: color 0.3s ease, transform 0.3s ease;
-  }
-
-  .nav-fixed{
-    .active{
-      border-color: $text-dark;
-      color:black !important;
+    .active {
+        transform: scale(1.1);
+        transition: color 0.3s ease, transform 0.3s ease;
     }
-  }
+
+    .nav-fixed {
+        .active {
+            border-color: $text-dark;
+            color: black !important;
+        }
+    }
 }
 
 @media (max-width: 640px) {
-  .active {
-    color:$white;
-    border-bottom: 1px solid $white;
-    transition: border-bottom 0.3s ease, color 0.3s ease, transform 0.3s ease;
-  }
+    .active {
+        color: $white;
+        border-bottom: 1px solid $white;
+        transition: border-bottom 0.3s ease, color 0.3s ease,
+            transform 0.3s ease;
+    }
 
-  .nav-fixed{ 
-    display: none;
-  }
+    .nav-fixed {
+        display: none;
+    }
 
-  .top-nav{
-    position: fixed;
-    background: $primary-dark;
-  }
+    .top-nav {
+        position: fixed;
+        background: $primary-dark;
+    }
 }

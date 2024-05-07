@@ -1,4 +1,4 @@
-import { CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
 
@@ -8,16 +8,21 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 // Constants
 import { socialIcons } from '../../utils/constants/social-icons.constants';
 
-// Enums
-import { product_enums } from '../../utils/enums/products.enums';
-
 // Models
 import { navigationIcons } from '../../model/navigation-icons.model';
-import { ActivationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import {
+    ActivationEnd,
+    Router,
+    RouterLink,
+    RouterLinkActive,
+} from '@angular/router';
 
 // Animations
 import { fade, slideInOut } from '../../helper/animations/mobile.animation';
-import { fadeNavigation, slideInOutNavigation } from './utils/animation/navigation.animation';
+import {
+    fadeNavigation,
+    slideInOutNavigation,
+} from './utils/animation/navigation.animation';
 
 // Helper
 import { handleScroll } from '../../helper/detectScroll';
@@ -25,121 +30,131 @@ import { handleScroll } from '../../helper/detectScroll';
 // Store
 import { Store } from '@ngrx/store';
 import { ProductCart, Products } from '../../model/product-cart.model';
+import { getProduct } from '../../store/product.actions';
+import { selectProduct } from '../../store/product.selectors';
 
 // Components
 import { CartComponent } from '../cart/cart.component';
-import { getProduct } from '../../store/product.actions';
-import { selectProduct } from '../../store/product.selectors';
 @Component({
-  selector: 'app-navbar',
-  standalone: true,
-  imports: [
-    CommonModule, 
-    AngularSvgIconModule, 
-    RouterLink, 
-    RouterLinkActive,
-    CartComponent
-  ],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss',
-  animations: [fade, slideInOut, fadeNavigation, slideInOutNavigation]
-
+    selector: 'app-navbar',
+    standalone: true,
+    imports: [
+        CommonModule,
+        AngularSvgIconModule,
+        RouterLink,
+        RouterLinkActive,
+        CartComponent,
+    ],
+    templateUrl: './navbar.component.html',
+    styleUrl: './navbar.component.scss',
+    animations: [fade, slideInOut, fadeNavigation, slideInOutNavigation],
 })
-export class NavbarComponent implements OnInit{
-  private destroy$ = new Subject<void>();
-  
-  public router: Router = inject(Router)
+export class NavbarComponent implements OnInit {
+    private destroy$ = new Subject<void>();
 
-  public icons: navigationIcons[] = socialIcons.SOCIAL_ICONS;
+    public router: Router = inject(Router);
 
-  public isMobileMenuOpen: boolean = false;
-  public isDropdownOpen: boolean = false;
+    public icons: navigationIcons[] = socialIcons.SOCIAL_ICONS;
 
-  private previousScrollPosition: number = 0;
+    public isMobileMenuOpen: boolean = false;
+    public isDropdownOpen: boolean = false;
 
-  public isBottomNavFixed: boolean = false;
-  public isScrolledToTop: boolean = true;
-  public isMagiceLineHovered: boolean = false;
+    private previousScrollPosition: number = 0;
 
-  public isCurrentRouteHome: boolean = false;
-  
-  public product$: Observable<ProductCart[]>
-  
-  public cart: Products[] = []
-  public isCartOpened: boolean = false
+    public isBottomNavFixed: boolean = false;
+    public isScrolledToTop: boolean = true;
+    public isMagiceLineHovered: boolean = false;
 
-  private store = inject(Store)
-  
-  constructor(){ 
-    this.checkRoute()
+    public isCurrentRouteHome: boolean = false;
 
-    this.store.dispatch(getProduct());
+    public product$: Observable<ProductCart[]>;
 
-    this.product$ = this.store.select(selectProduct);
-  }
+    public cart: Products[] = [];
+    public isCartOpened: boolean = false;
 
-  ngOnInit(): void {
-    this.onWindowScroll()
+    private store = inject(Store);
 
-    this.getCart()
-  }
+    constructor() {
+        this.checkRoute();
 
-  private getCart(): void {
-    this.product$
-    .pipe(
-      takeUntil(this.destroy$)
-    )
-    .subscribe((res: any) =>{ 
-      this.cart = res
-    })
-  }
+        this.store.dispatch(getProduct());
 
-  public openCart(): void {
-    this.isCartOpened = !this.isCartOpened
-  }
-
-  public checkRoute(): void {
-    this.router.events
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((event: any) => {
-      if (event instanceof ActivationEnd && event.snapshot && event.snapshot.routeConfig) {
-        if(event.snapshot.routeConfig.path === 'pocetna') {
-          this.isCurrentRouteHome = true
-        } else {
-          this.isCurrentRouteHome = false
-        }
-      }
-    });
-  }
-
-  @HostListener('document:click', ['$event'])
-  public clickOutside(event: Event): void {
-    if (!(event.target as HTMLElement).closest('.relative')) {
-      this.closeDropdown();
+        this.product$ = this.store.select(selectProduct);
     }
-  }
 
-  @HostListener('window:scroll', ['$event'])
-  private onWindowScroll(): void {
-    const { isBottomNavFixed, isScrolledToTop, previousScrollPosition } = handleScroll(this.previousScrollPosition, this.isBottomNavFixed, this.isScrolledToTop);
-    this.isBottomNavFixed = isBottomNavFixed;
-    this.isScrolledToTop = isScrolledToTop;
-    this.previousScrollPosition = previousScrollPosition;
-  }
+    ngOnInit(): void {
+        this.onWindowScroll();
 
-  public toggleMobileMenu(): void {
-    this.isMobileMenuOpen = !this.isMobileMenuOpen;
-  }
+        this.getCart();
+    }
 
-  public toggleDropdown(): void {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  }
+    private getCart(): void {
+        this.product$.pipe(takeUntil(this.destroy$)).subscribe((res: any) => {
+            this.cart = res;
+        });
+    }
 
-  public closeDropdown(): void {
-    this.isDropdownOpen = false;
-  }
+    public openCart(): void {
+        this.isCartOpened = !this.isCartOpened;
+    }
 
-  public magic_line(showHideMagicLIne: boolean): void {
-    this.isMagiceLineHovered = showHideMagicLIne
-  }
+    public checkRoute(): void {
+        this.router.events
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((event: any) => {
+                if (
+                    event instanceof ActivationEnd &&
+                    event.snapshot &&
+                    event.snapshot.routeConfig
+                ) {
+                    if (event.snapshot.routeConfig.path === 'pocetna') {
+                        this.isCurrentRouteHome = true;
+                    } else {
+                        this.isCurrentRouteHome = false;
+                    }
+                }
+            });
+    }
+
+    @HostListener('window:scroll', ['$event'])
+    private onWindowScroll(): void {
+        const { isBottomNavFixed, isScrolledToTop, previousScrollPosition } =
+            handleScroll(
+                this.previousScrollPosition,
+                this.isBottomNavFixed,
+                this.isScrolledToTop
+            );
+        this.isBottomNavFixed = isBottomNavFixed;
+        this.isScrolledToTop = isScrolledToTop;
+        this.previousScrollPosition = previousScrollPosition;
+    }
+
+    public toggleMobileMenu(): void {
+        this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    }
+
+    public toggleDropdown(): void {
+        this.isDropdownOpen = !this.isDropdownOpen;
+    }
+
+    public closeDropdown(): void {
+        this.isDropdownOpen = false;
+    }
+
+    public closeCart(): void {
+        this.isCartOpened = false;
+    }
+
+    @HostListener('document:click', ['$event'])
+    public clickOutside(event: Event): void {
+        if (!(event.target as HTMLElement).closest('.dropdown-element')) {
+            this.closeDropdown();
+
+            this.closeCart();
+        }
+    }
+
+    public magic_line(showHideMagicLIne: boolean): void {
+        this.isMagiceLineHovered = showHideMagicLIne;
+    }
 }

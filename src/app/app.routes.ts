@@ -10,13 +10,18 @@ import { SingleProductComponent } from './pages/single-product/single-product.co
 import { CartComponent } from './pages/cart/cart.component';
 
 export const routes: Routes = [
-    { path: 'pocetna', 'title': 'Pocetna', component: HomeComponent },
-    { path: 'kontakt', 'title': 'Kontakt', component: ContactComponent},
-    { path: 'tepisi' , 'title' : 'Tepisi', component: RugsComponent, data: {name: 'rugs'}},
-    { path: 'cebad' , 'title' : 'Ćebad', component: RugsComponent, data: {name: 'blankets'}},
-    { path: 'o-nama', 'title': 'O Nama', component: AboutUsComponent},
-    { path: 'proizvod/:id', component: SingleProductComponent},
-    { path: 'korpa', component: CartComponent},
-    { path: '', redirectTo: 'pocetna' , pathMatch: 'full' },
-    { path: '**', component: PageNotFoundComponent }
+    { path: 'pocetna', title: 'Pocetna', component: HomeComponent },
+    { path: 'kontakt', title: 'Kontakt', component: ContactComponent },
+    {
+        path: 'tepisi',
+        title: 'Tepisi',
+        component: RugsComponent,
+        data: { name: 'rugs' },
+    },
+    // { path: 'cebad' , 'title' : 'Ćebad', component: RugsComponent, data: {name: 'blankets'}},
+    { path: 'o-nama', title: 'O Nama', component: AboutUsComponent },
+    { path: 'proizvod/:id', component: SingleProductComponent },
+    { path: 'korpa', component: CartComponent },
+    { path: '', redirectTo: 'pocetna', pathMatch: 'full' },
+    { path: '**', component: PageNotFoundComponent },
 ];
