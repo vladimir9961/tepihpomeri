@@ -1,18 +1,21 @@
 <article class="wrapper md:grid xs:flex xs:flex-col xs:items-center">
-    @for (product of products; track product.title)  {
-        <div class="max-w-[300px] cursor-pointer"
+    @for (product of products; track product.title) {
+    <div
+        class="max-w-[300px] cursor-pointer"
         [routerLink]="'/proizvod/' + product.id.toString()"
-         >
-              <img [src]="product?.images[0]?.src" alt="" loading="lazy">
+    >
+        <img [src]="product?.images[0]?.src" alt="" loading="lazy" />
 
-              <h4 class="pl-[12px] text-primary-100 text-sm italic font-bold">{{product?.name}}</h4>
-              
-            <div class="pl-[12px]"> 
-                <span class="text-[#C4C4C4] text-sm italic font-bold">
-                    {{product?.price}} 
-                </span>
-                <span class="text-[#C4C4C4] text-sm italic font-bold">RSD</span>
-            </div>
+        <h4 class="pl-[12px] text-primary-100 text-sm italic font-bold">
+            {{ product?.name }}
+        </h4>
+
+        <div class="pl-[12px]">
+            <span class="text-[#252525] text-xs italic font-bold">
+                {{ product?.price }}
+            </span>
+            <span class="text-[#252525] text-xs italic font-bold">RSD</span>
         </div>
-}
+    </div>
+    }
 </article>

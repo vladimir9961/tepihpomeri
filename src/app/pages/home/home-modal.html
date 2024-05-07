@@ -83,7 +83,8 @@
 <mat-dialog-actions>
     <button
         (click)="sendEmail()"
-        class="text-text-gray mx-[24px] py-[10px] duration-[0.3s] border rounded-md hover:bg-primary-100 hover:text-white w-[100%] text-sm"
+        class="text-primary-100 ml-[24px] mr-[28px] py-[10px] my-[20px] duration-[0.3s] border rounded-md hover:bg-primary-100 hover:text-white w-[100%] text-sm"
+        [ngClass]="{'pointer-events-none cursor-not-allowed text-primary-hoverLightGray': !order_form.valid}"
     >
         Pošalji
     </button>

@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-    Component,
-    ElementRef,
-    HostListener,
-    inject,
-    OnInit,
-    ViewChild,
-} from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
 
 // Modules
@@ -37,11 +30,11 @@ import { handleScroll } from '../../helper/detectScroll';
 // Store
 import { Store } from '@ngrx/store';
 import { ProductCart, Products } from '../../model/product-cart.model';
+import { getProduct } from '../../store/product.actions';
+import { selectProduct } from '../../store/product.selectors';
 
 // Components
 import { CartComponent } from '../cart/cart.component';
-import { getProduct } from '../../store/product.actions';
-import { selectProduct } from '../../store/product.selectors';
 @Component({
     selector: 'app-navbar',
     standalone: true,
@@ -81,7 +74,7 @@ export class NavbarComponent implements OnInit {
 
     private store = inject(Store);
 
-    constructor(private _eref: ElementRef) {
+    constructor() {
         this.checkRoute();
 
         this.store.dispatch(getProduct());
@@ -154,8 +147,6 @@ export class NavbarComponent implements OnInit {
 
     @HostListener('document:click', ['$event'])
     public clickOutside(event: Event): void {
-        console.log('test');
-
         if (!(event.target as HTMLElement).closest('.dropdown-element')) {
             this.closeDropdown();
 

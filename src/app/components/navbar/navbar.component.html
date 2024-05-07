@@ -15,7 +15,7 @@
                 ></svg-icon>
 
                 <span class="text-white font-semibold italic text-xs"
-                    >Dostava na teritoriji cele Srbije</span
+                    >Dostava na teritoriji Srbije</span
                 >
             </div>
 
@@ -103,7 +103,17 @@
                         >Početna</a
                     >
 
-                    <li class="px-[8px]">
+                    <a
+                        routerLink="/tepisi"
+                        routerLinkActive="active new-magic-line-selected-rugs"
+                        class="px-[8px] text-black text-14 flex items-center font-semibold italic select-none"
+                        [ngClass]="{
+                            'text-gray-300 hover:text-white': isCurrentRouteHome
+                        }"
+                        >Tepisi</a
+                    >
+
+                    <!-- <li class="px-[8px]">
                         <div
                             class="relative cursor-pointer"
                             routerLinkActive="active"
@@ -146,7 +156,7 @@
                                 >
                             </div>
                         </div>
-                    </li>
+                    </li> -->
 
                     <a
                         routerLink="/o-nama"
@@ -223,14 +233,21 @@
                         >Početna</a
                     >
 
-                    <li class="px-[8px]">
+                    <a
+                        routerLink="/tepisi"
+                        routerLinkActive="active new-magic-line-selected-rugs"
+                        class="text-black text-14 flex items-center font-semibold italic px-[8px]"
+                        >Tepisi</a
+                    >
+
+                    <!-- <li class="px-[8px]">
                         <div
                             class="relative cursor-pointer"
                             routerLinkActive="active"
                             [routerLinkActiveOptions]="{ exact: true }"
                             (clickOutside)="closeDropdown()"
                         >
-                            <!-- Dropdown Button -->
+                           
                             <button
                                 class="text-black text-14 flex items-center font-semibold italic dropdown-element"
                                 (click)="toggleDropdown()"
@@ -238,7 +255,7 @@
                                 Proizvodi
                             </button>
 
-                            <!-- Dropdown Menu -->
+                          
                             <div
                                 [ngClass]="{ 'open-dropdown': isDropdownOpen }"
                                 class="hidden absolute left-0 mt-2 w-[130px] bg-primary-100 rounded-xs shadow-lg z-10 dropdown-element"
@@ -264,7 +281,7 @@
                                 >
                             </div>
                         </div>
-                    </li>
+                    </li> -->
 
                     <a
                         routerLink="/o-nama"
@@ -291,7 +308,7 @@
     </div>
 
     <!-- Mobile menu toggle button -->
-    <div class="sm:hidden fixed right-0 top-[50px] z-10" id="mobileMenuButton">
+    <div class="sm:hidden fixed right-0 top-[70px] z-10" id="mobileMenuButton">
         <button
             (click)="toggleMobileMenu()"
             type="button"
@@ -351,13 +368,20 @@
                 Početna
             </button>
 
-            <div
+            <button
+                routerLink="/tepisi"
+                routerLinkActive="active"
+                class="text-gray-300 px-3 py-2 text-sm font-semibold italic"
+            >
+                Tepisi
+            </button>
+
+            <!-- <div
                 class="relative cursor-pointer flex flex-col items-center"
                 routerLinkActive="active-child"
                 [routerLinkActiveOptions]="{ exact: true }"
                 (clickOutside)="closeDropdown()"
             >
-                <!-- Dropdown Button -->
                 <button
                     class="text-gray-300 text-14 flex items-center font-semibold italic hover:text-white first-child"
                     (click)="toggleDropdown()"
@@ -365,7 +389,6 @@
                     Proizvodi
                 </button>
 
-                <!-- Dropdown Menu -->
                 <div
                     [ngClass]="{ 'open-dropdown-mobile': isDropdownOpen }"
                     class="hidden left-0 mt-2 z-10"
@@ -387,7 +410,7 @@
                         >Ćebad</a
                     >
                 </div>
-            </div>
+            </div> -->
 
             <button
                 (click)="toggleMobileMenu()"

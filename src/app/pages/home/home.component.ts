@@ -1,5 +1,8 @@
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { CommonModule } from '@angular/common';
 import emailjs from '@emailjs/browser';
+import { RouterLink } from '@angular/router';
+
 import {
     FormBuilder,
     FormGroup,
@@ -25,7 +28,6 @@ import { ContactInputs } from '../../utils/constants/contact-inputs.constants';
 
 // Components
 import { InputComponent } from '../../components/input/input.component';
-import { Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-home',
@@ -35,6 +37,7 @@ import { Subject, takeUntil } from 'rxjs';
         MatDialogModule,
         MatInputModule,
         MatFormFieldModule,
+        RouterLink,
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
@@ -71,10 +74,10 @@ export class HomeComponent {
         ReactiveFormsModule,
 
         InputComponent,
+        CommonModule,
     ],
 })
 export class DialogAnimationsExampleDialog {
-    private destroy$ = new Subject<void>();
     public contactInputs = ContactInputs.CONTACT_INPUTS;
     public imageUrl: any;
 
@@ -126,7 +129,6 @@ export class DialogAnimationsExampleDialog {
                     zip_number: this.order_form.value.zip_number,
                     width: this.order_form.value.width,
                     length: this.order_form.value.length,
-                    file: this.order_form.value.file.toDataURL(), // Pass the Base64 data URL directly
                 }
             );
             console.log('Email sent:', response);

@@ -1,4 +1,4 @@
-import { ContactInputsModel } from "../../model/contact-inputs.model";
+import { ContactInputsModel } from '../../model/contact-inputs.model';
 
 export class ContactInputs {
     static CONTACT_INPUTS: ContactInputsModel[] = [
@@ -13,27 +13,24 @@ export class ContactInputs {
             type: 'email',
             form_control: 'from_email',
             required: true,
-        }
-        ,
+        },
         {
             label: 'Broj telefona',
-            type: 'tel',
+            type: 'number',
             form_control: 'number',
             required: true,
-        }
-        ,
+        },
         {
             label: 'Adresa ulica i broj',
             type: 'text',
             form_control: 'address',
             required: true,
-        }
-        ,
+        },
         {
             label: 'Poštanski broj',
-            type: 'zip_number',
-            form_control: 'from_email',
+            type: 'number',
+            form_control: 'zip_number',
             required: true,
-        }
-    ] 
+        },
+    ];
 }

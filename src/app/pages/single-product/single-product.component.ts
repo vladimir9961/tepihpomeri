@@ -21,148 +21,144 @@ import { selectProduct } from '../../store/product.selectors';
 import { ProductStoreService } from '../../services/products-services/product-store.service';
 
 @Component({
-  selector: 'app-single-product',
-  standalone: true,
-  imports: [
-    CommonModule,
-    AngularSvgIconModule,
-    RouterLink
-    ],
-  templateUrl: './single-product.component.html',
-  styleUrl: './single-product.component.scss',
+    selector: 'app-single-product',
+    standalone: true,
+    imports: [CommonModule, AngularSvgIconModule, RouterLink],
+    templateUrl: './single-product.component.html',
+    styleUrl: './single-product.component.scss',
 })
 export class SingleProductComponent {
-  private destroy$ = new Subject<void>();
-  
-  public product: any;
-  public similarProducts: Product[] = [];
-  public counter: number = 1;
+    private destroy$ = new Subject<void>();
 
-  public product$: Observable<ProductCart[]>
-  public productsInStore: any = []
-  public isSelectedAlredy: boolean = false
+    public product: any;
+    public similarProducts: Product[] = [];
+    public counter: number = 1;
 
-  private store = inject(Store)
-  private getProductService = inject(GetProductsService)
-  private route = inject(ActivatedRoute)
-  private productsService = inject(ProductStoreService)
+    public product$: Observable<ProductCart[]>;
+    public productsInStore: any = [];
+    public isSelectedAlredy: boolean = false;
 
-  constructor() {
-    this.store.dispatch(getProduct());
+    private store = inject(Store);
+    private getProductService = inject(GetProductsService);
+    private route = inject(ActivatedRoute);
+    private productsService = inject(ProductStoreService);
 
-    this.product$ = this.store.select(selectProduct);
-  }
+    constructor() {
+        this.store.dispatch(getProduct());
 
-  ngOnInit(): void {
-    this.getProduct()
-  } 
+        this.product$ = this.store.select(selectProduct);
+    }
 
-  private getProduct(): void {
-    this.route.params.subscribe((params: any) => {
-      this.getProductService.getSingleProduct(params.id)
-       .pipe(
-        takeUntil(this.destroy$)
-        )
+    ngOnInit(): void {
+        this.getProduct();
+    }
 
-        .subscribe(product => {
-          console.log(product)
-          this.product = product
-          
-          this.getCart()
+    private getProduct(): void {
+        this.route.params.subscribe((params: any) => {
+            this.getProductService
+                .getSingleProduct(params.id)
+                .pipe(takeUntil(this.destroy$))
 
-          this.getRelatedProducts(product.related_ids)
-        })
-    });
-  }
+                .subscribe((product) => {
+                    this.product = product;
 
-  private getCart(): void {
-    this.product$
-    .pipe(
-      takeUntil(this.destroy$)
-    )
-    .subscribe((res) =>{ 
-      this.productsInStore = []
+                    this.getCart();
 
-      if(res.length > 0) this.productsInStore = res
+                    this.getRelatedProducts(product.related_ids);
+                });
+        });
+    }
 
-      this.isSelectedAlredy = this.checkIfProductIsAlredyInStore(this.product.id) 
-    })
-  }
+    private getCart(): void {
+        this.product$.pipe(takeUntil(this.destroy$)).subscribe((res) => {
+            this.productsInStore = [];
 
-  private getRelatedProducts(related_ids: number[]): void {
-    this.getProductService.getRelatedProducts(related_ids)
-    .pipe(
-      takeUntil(this.destroy$)
-    )
-    .subscribe(products => {
-      this.similarProducts = products
-    })
-  }
+            if (res.length > 0) this.productsInStore = res;
 
-  public counterQuantity(increseDecrese?: string): void {
-    switch(increseDecrese) {
-      case product_enums.MINUS:
-        if (this.counter !== 1) {
-          this.counter -= 1;
+            this.isSelectedAlredy = this.checkIfProductIsAlredyInStore(
+                this.product.id
+            );
+        });
+    }
+
+    private getRelatedProducts(related_ids: number[]): void {
+        this.getProductService
+            .getRelatedProducts(related_ids)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((products) => {
+                this.similarProducts = products;
+            });
+    }
+
+    public counterQuantity(increseDecrese?: string): void {
+        switch (increseDecrese) {
+            case product_enums.MINUS:
+                if (this.counter !== 1) {
+                    this.counter -= 1;
+                }
+                break;
+
+            default:
+                this.counter += 1;
+                break;
         }
-      break;
-      
-      default: 
-      this.counter += 1;
-      break
     }
-  }
 
-  public addRemoveFromCart(isInCart: boolean, product: any): void {
-    if(isInCart){
-      // this.removeProductFromCart(product.id);
-      this.productsInStore = this.productsService.removeProductFromCart(product.id)
-    } else {
-      
-      this.productsInStore = this.productsService.addProduct(product, this.counter)
-      // this.addProductInCart(product)
+    public addRemoveFromCart(isInCart: boolean, product: any): void {
+        if (isInCart) {
+            // this.removeProductFromCart(product.id);
+            this.productsInStore = this.productsService.removeProductFromCart(
+                product.id
+            );
+        } else {
+            this.productsInStore = this.productsService.addProduct(
+                product,
+                this.counter
+            );
+            // this.addProductInCart(product)
+        }
     }
-  }
 
-  // private removeProductFromCart(productId: number): void {
-  //   this.productsInStore = this.productsInStore.filter((product: { id: number; }) => product.id !== productId);
-    
-  //   localStorage.setItem('products', JSON.stringify(this.productsInStore));
+    // private removeProductFromCart(productId: number): void {
+    //   this.productsInStore = this.productsInStore.filter((product: { id: number; }) => product.id !== productId);
 
-  //   this.store.dispatch(setProduct({product: this.productsInStore}));
+    //   localStorage.setItem('products', JSON.stringify(this.productsInStore));
 
-  //   this.store.dispatch(getProduct());
+    //   this.store.dispatch(setProduct({product: this.productsInStore}));
 
-  // }
+    //   this.store.dispatch(getProduct());
 
-  // private addProductInCart(product: any): void {
-  //   this.productsService.addProduct(product, this.counter)
-  //   if(!this.checkIfProductIsAlredyInStore(product.id)){
+    // }
 
-  //     let addProduct =  { 
-  //       id: product.id,
-  //       name: product.name, 
-  //       description: product.description,
-  //       image: product.images[0], 
-  //       quantity: this.counter
-  //     }
+    // private addProductInCart(product: any): void {
+    //   this.productsService.addProduct(product, this.counter)
+    //   if(!this.checkIfProductIsAlredyInStore(product.id)){
 
-  //       this.productsInStore = [
-  //         ...this.productsInStore,
-  //         addProduct
-  //       ];
+    //     let addProduct =  {
+    //       id: product.id,
+    //       name: product.name,
+    //       description: product.description,
+    //       image: product.images[0],
+    //       quantity: this.counter
+    //     }
 
-  //     localStorage.setItem('products', JSON.stringify(this.productsInStore));
+    //       this.productsInStore = [
+    //         ...this.productsInStore,
+    //         addProduct
+    //       ];
 
-  //     this.store.dispatch(setProduct({product: this.productsInStore}));
+    //     localStorage.setItem('products', JSON.stringify(this.productsInStore));
 
-  //     this.store.dispatch(getProduct());
+    //     this.store.dispatch(setProduct({product: this.productsInStore}));
 
-  //   }
-  // }
+    //     this.store.dispatch(getProduct());
 
-  private checkIfProductIsAlredyInStore(productId: number): boolean {
-    return this.productsInStore.some((product: { id: number; }) => product.id === productId);
-  }
-  
+    //   }
+    // }
+
+    private checkIfProductIsAlredyInStore(productId: number): boolean {
+        return this.productsInStore.some(
+            (product: { id: number }) => product.id === productId
+        );
+    }
 }
