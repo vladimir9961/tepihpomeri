@@ -1,41 +1,53 @@
-<main class="min-h-[100vh] xl:px-[80px] 2xl:px-[120px] md:px-[60px] relative top-[50px] mb-[100px]">
+<main
+    class="xs:px-[10px] min-h-[100vh] xl:px-[80px] 2xl:px-[120px] md:px-[60px] relative top-[50px] mb-[100px]"
+>
     <section class="mt-[40px] lg:mx-[100px] xl:mx-[150px] 2xl:mx-[200px]">
         <article class="xs:grid lg:flex xl:gap-[100px] 2xl:gap-[150px]">
             <div>
-                <img 
-                [src]="product?.images[0].src" appZoomHover/>
-
+                <img [src]="product?.images[0].src" appZoomHover />
             </div>
 
             <div class="flex flex-col gap-[20px] mt-[20px]">
-                <h1 class="text-primary-100 font-bold text-3xl italic"
-                >{{product?.name}}</h1>
+                <h1 class="text-primary-100 font-bold text-3xl italic">
+                    {{ product?.name }}
+                </h1>
 
-                <h2>{{product?.regular_price}} RSD</h2>
-              
+                <h2>{{ product?.regular_price }} RSD</h2>
+
                 @if (product?.dimensions.length && product?.dimensions.width) {
-                    <div>
-                        <p class="text-text-dark text-sm font-bold">Duzina: {{product?.dimensions.length}} cm</p>
-                        <p class="text-text-dark text-sm font-bold">Sirina: {{product?.dimensions.width}} cm</p>
-                    </div>
+                <div>
+                    <p class="text-text-dark text-sm font-bold">
+                        Duzina: {{ product?.dimensions.length }} cm
+                    </p>
+                    <p class="text-text-dark text-sm font-bold">
+                        Sirina: {{ product?.dimensions.width }} cm
+                    </p>
+                </div>
                 }
 
                 <div>
-                    <h4 class="font-semibold text-sm text-text-dark">Opis proizvoda:</h4>
-                    <div class="description" [innerHTML]="product?.description"></div>
+                    <h4 class="font-semibold text-sm text-text-dark">
+                        Opis proizvoda:
+                    </h4>
+                    <div
+                        class="description"
+                        [innerHTML]="product?.description"
+                    ></div>
                 </div>
 
                 <ul class="list-disc list-inside">
-                @for (shortDescription of product?.tags; track $index) {
-                    <li class="text-xs font-semibold">{{shortDescription.name}}</li>
-                }
+                    @for (shortDescription of product?.tags; track $index) {
+                    <li class="text-xs font-semibold">
+                        {{ shortDescription.name }}
+                    </li>
+                    }
                 </ul>
 
                 <div class="flex flex-col gap-[5px] mt-[10px]">
                     <div class="flex items-center gap-[5px]">
-                        <svg-icon 
-                        src="/assets/svg/delivery-dark.svg"
-                        [svgStyle]="{ 'width.px': 25, 'height.px': 25 }"
+                        <svg-icon
+                            src="/assets/svg/delivery-dark.svg"
+                            [svgStyle]="{ 'width.px': 25, 'height.px': 25 }"
                         >
                         </svg-icon>
 
@@ -45,9 +57,9 @@
                     </div>
 
                     <div class="flex items-center gap-[5px]">
-                        <svg-icon 
-                        src="/assets/svg/eco.svg"
-                        [svgStyle]="{ 'width.px': 25, 'height.px': 25 }"
+                        <svg-icon
+                            src="/assets/svg/eco.svg"
+                            [svgStyle]="{ 'width.px': 25, 'height.px': 25 }"
                         >
                         </svg-icon>
 
@@ -57,9 +69,9 @@
                     </div>
 
                     <div class="flex items-center gap-[5px]">
-                        <svg-icon 
-                        src="/assets/svg/quality.svg"
-                        [svgStyle]="{ 'width.px': 25, 'height.px': 25 }"
+                        <svg-icon
+                            src="/assets/svg/quality.svg"
+                            [svgStyle]="{ 'width.px': 25, 'height.px': 25 }"
                         >
                         </svg-icon>
 
@@ -70,69 +82,73 @@
 
                     <div class="flex items-center mt-[50px] mb-[20px]">
                         <div class="grid">
-
-                        <h4 class="font-medium text-text-dark text-sm mb-[6px]">Količina:</h4>
-
-                        <div class="flex border">
-                            <div
-                            class="text-text-dark text-2xl select-none w-[40px] h-[40px] flex justify-center items-center cursor-pointer"
-                            (click)="counterQuantity('minus')"
+                            <h4
+                                class="font-medium text-text-dark text-sm mb-[6px]"
                             >
-                                -
-                            </div>
+                                Količina:
+                            </h4>
 
-                            <div class="text-text-dark select-none w-[40px] h-[40px] flex justify-center items-center border-l border-r">
-                               {{counter}}
-                            </div>
+                            <div class="flex border">
+                                <div
+                                    class="text-text-dark text-2xl select-none w-[40px] h-[40px] flex justify-center items-center cursor-pointer"
+                                    (click)="counterQuantity('minus')"
+                                >
+                                    -
+                                </div>
 
-                            <div 
-                            class="text-text-dark text-2xl select-none w-[40px] h-[40px] flex justify-center items-center cursor-pointer"
-                            (click)="counterQuantity()"
-                            >
-                                +
+                                <div
+                                    class="text-text-dark select-none w-[40px] h-[40px] flex justify-center items-center border-l border-r"
+                                >
+                                    {{ counter }}
+                                </div>
+
+                                <div
+                                    class="text-text-dark text-2xl select-none w-[40px] h-[40px] flex justify-center items-center cursor-pointer"
+                                    (click)="counterQuantity()"
+                                >
+                                    +
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    </div>
-
                     <div class="flex items-center">
-                        <button 
-                        class="border p-[15px] rounded-md w-full 
-                        border-primary-100 hover:bg-primary-100
-                        transition-colors duration-300 hover:text-white"
-                        (click)="addRemoveFromCart(isSelectedAlredy, product)"
+                        <button
+                            class="border p-[15px] rounded-md w-full border-primary-100 hover:bg-primary-100 transition-colors duration-300 hover:text-white"
+                            (click)="
+                                addRemoveFromCart(isSelectedAlredy, product)
+                            "
                         >
-                        @if (isSelectedAlredy) {
-                            Ukloni iz korpe
-                        } @else {
-                            Dodaj u korpu
-                        }
+                            @if (isSelectedAlredy) { Ukloni iz korpe } @else {
+                            Dodaj u korpu }
                         </button>
                     </div>
-            </div>
-
-
+                </div>
             </div>
         </article>
     </section>
 
+    <section class="mt-[50px]">
+        <h1 class="font-medium text-xl">Slični proizvodi</h1>
 
-<section class="mt-[50px]">
-    <h1 class="font-medium text-xl">Slični proizvodi</h1>
-    
-    <div class="flex">
-        @for (similarProduct of similarProducts; track $index) {
-            <div 
-            [routerLink]="'/proizvod/' + similarProduct.id.toString()"
-            class="cursor-pointer">
-                <img [src]="similarProduct.images ? similarProduct.images[0].src : ''">
+        <div class="xs:grid sm:flex">
+            @for (similarProduct of similarProducts; track $index) {
+            <div
+                [routerLink]="'/proizvod/' + similarProduct.id.toString()"
+                class="cursor-pointer"
+            >
+                <img
+                    [src]="
+                        similarProduct.images
+                            ? similarProduct.images[0].src
+                            : ''
+                    "
+                />
 
-                <h3 class="text-sm font-medium">{{similarProduct?.name}}</h3>
-                <h3 class="text-xs">{{similarProduct?.price}} RSD</h3>
-            </div>           
-        }
-    </div>
-</section>
-    
+                <h3 class="text-sm font-medium">{{ similarProduct?.name }}</h3>
+                <h3 class="text-xs">{{ similarProduct?.price }} RSD</h3>
+            </div>
+            }
+        </div>
+    </section>
 </main>

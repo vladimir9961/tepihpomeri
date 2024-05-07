@@ -369,8 +369,10 @@
             </button>
 
             <button
+                (click)="toggleMobileMenu()"
                 routerLink="/tepisi"
                 routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
                 class="text-gray-300 px-3 py-2 text-sm font-semibold italic"
             >
                 Tepisi

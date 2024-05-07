@@ -1,60 +1,50 @@
-<main class="flex mt-[50px] pt-[50px] justify-center h-[100vh]">
-<div class="w-[50%] ">
-    @for (product of productsInStore; track $index) {
+<main class="xs:grid sm:flex mt-[50px] pt-[50px] justify-center h-[100vh]">
+    <div class="xs:w-[100%] sm:w-[50%]">
+        @for (product of productsInStore; track $index) {
         <div class="flex justify-center">
-
             <div>
-                <img [src]="product.image.src" class="h-[200px] w-[200px]"/>
+                <img [src]="product.image.src" class="h-[200px] w-[200px]" />
             </div>
 
             <div class="flex flex-col justify-center min-w-[100px]">
-                <p class="text-text-dark text-sm font-semibold">{{product.name}}</p>
-                
-                <p class="text-text-dark text-sm font-semibold" 
-                >Kolicina: {{product.quantity}}</p>
+                <p class="text-text-dark text-sm font-semibold">
+                    {{ product.name }}
+                </p>
+
+                <p class="text-text-dark text-sm font-semibold">
+                    Kolicina: {{ product.quantity }}
+                </p>
+            </div>
         </div>
-        </div>
-    }
-</div>
-
-<div class="flex flex-col items-start w-[50%]">
-    <form 
-        [formGroup]="order_form" 
-        action="javascript:void(0)"
-        class="max-w-md m-[0] min-w-[300px]"
-        >
-
-        @for (inputs of contactInputs; track $index) {
-
-                <app-input 
-                    [formControlName]="inputs.form_control" 
-                    [label]="inputs.label"
-                    [type]="inputs.type"
-                    [name]="inputs.form_control"
-                    [isRequired]="inputs.required"
-                    [choseFile]="false"
-                    ngDefaultControl
-                ></app-input>
-
-<!--                 
-                @if(hasError(inputs.form_control, 'required')) {
-                    <p class="text-red-500">Field is required</p>
-                }
-
-                @if(hasError(inputs.form_control, 'email')){
-                    <p class="text-red-500">Invalid email format</p>
-                } -->
         }
+    </div>
 
-        <button 
-            (click)="send()"
-            type="submit" 
-            class="text-white bg-primary-100 hover:bg-primary-primaryHover focus:ring-4 focus:outline-none 
-            focus:ring-blue-300 font-medium rounded-lg text-sm px-5 
-            py-2.5 text-center dark:primary-100 dark:hover:bg-primary-primaryHover dark:focus:ring-blue-800 w-full">
-            Posalji
-        </button>
-    </form>
-</div>
+    <div class="flex flex-col items-start w-[50%]">
+        <form
+            [formGroup]="order_form"
+            action="javascript:void(0)"
+            class="max-w-md m-[0] min-w-[300px]"
+        >
+            @for (inputs of contactInputs; track $index) {
 
+            <app-input
+                [formControlName]="inputs.form_control"
+                [label]="inputs.label"
+                [type]="inputs.type"
+                [name]="inputs.form_control"
+                [isRequired]="inputs.required"
+                [choseFile]="false"
+                ngDefaultControl
+            ></app-input>
+            }
+
+            <button
+                (click)="send()"
+                type="submit"
+                class="text-white bg-primary-100 hover:bg-primary-primaryHover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:primary-100 dark:hover:bg-primary-primaryHover dark:focus:ring-blue-800 w-full"
+            >
+                Posalji
+            </button>
+        </form>
+    </div>
 </main>
